@@ -47,7 +47,11 @@ class ZiroScreen extends HTMLElement {
     }
 
     slideTo(index) {
-        this.querySelector('ziro-panel-set').slideTo(index);
+        const panelSet = this.querySelector('ziro-panel-set');
+
+        if (panelSet && typeof panelSet.slideTo === 'function') {
+            panelSet.slideTo(index);
+        }
     }
 }
 

@@ -3,7 +3,7 @@ import {terser} from 'rollup-plugin-terser';
 import resolve from 'rollup-plugin-node-resolve';
 
 export default {
-  input: 'src/ziro.js',
+  input: 'src/ziro-components.js',
   output: {
     file: 'docs/static/ziro.bundled.js',
     name: 'WeatherBear',

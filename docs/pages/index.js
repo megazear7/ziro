@@ -5,7 +5,7 @@ export default context => html`
     <p>A set of web components for easily building apps.</p>
   </section>
   <section>
-    <div><a href="/ziro-screen.html"><h3>&lt;ziro-screen></h3></a></div>
+    <h3><a href="/ziro-screen.html">&lt;ziro-screen></a></h3>
     <p>&lt;ziro-screen> allows you to build a bottom navigation based app with ease</p>
     <ziro-screen>
       <ziro-panel-set>

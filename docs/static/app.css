@@ -37,6 +37,12 @@ h1 {
   text-align: center;
 }
 
+
+h1 a, h1 a:visited {
+  color: var(--tertiary-color);
+  text-decoration: none;
+}
+
 h2 {
   font-size: 2.5rem;
   line-height: 1;
@@ -52,6 +58,10 @@ h3 {
   letter-spacing: 2px;
   color: var(--tertiary-color);
   text-shadow: var(--text-shadow);
+}
+
+h3 a, h3 a:visited {
+  color: var(--tertiary-color);
 }
 
 h4 {
@@ -122,9 +132,18 @@ header {
   background-color: var(--secondary-color);
 }
 
+header img {
+  display: block;
+  margin: auto;
+}
+
 footer {
   padding: 1rem;
-  background: var(--secondary-color);
+  background: var(--tertiary-color);
+}
+
+footer a {
+  color: rgba(0, 0, 0, 0.8);
 }
 
 nav {

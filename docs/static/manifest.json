@@ -1,11 +1,11 @@
 {
-  "name": "OrisonJS",
-  "short_name": "OrisonJS",
-  "description": "Orison server and static stite generator documentation",
+  "name": "Ziro Components",
+  "short_name": "ZiroComponents",
+  "description": "A set of web components for easily building apps.",
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#fa5d0f",
-  "background_color": "#ffce27",
+  "theme_color": "#F4A261",
+  "background_color": "#264653",
   "icons": [
     {
       "src": "icons/icon-512x512.png",
@@ -25,16 +25,6 @@
     {
       "src": "icons/icon-64x64.png",
       "sizes": "64x64",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/icon-24x24.png",
-      "sizes": "24x24",
-      "type": "image/png"
-    },
-    {
-      "src": "icons/icon-16x16.png",
-      "sizes": "16x16",
       "type": "image/png"
     }
   ]
