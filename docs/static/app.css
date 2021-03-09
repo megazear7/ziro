@@ -15,7 +15,7 @@ html {
   --border-radius: 5px;
   --content-width: 600px;
   --text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.3rem;
   color: rgba(0, 0, 0, 0.8);
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -26,6 +26,7 @@ html {
 body {
   margin: 0;
   padding: 0;
+  text-overflow: clip;
 }
 
 h1 {
@@ -216,4 +217,22 @@ ziro-panel:nth-of-type(3) {
 
 ziro-panel:nth-of-type(4) {
   background-color: #777;
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 3rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
+
+  h4 {
+    font-size: 1.35rem;
+  }
 }
