@@ -1,9 +1,10 @@
 import { html } from 'orison';
 
-export default (currentPath) => html`
+export default () => html`
   <nav>
     <div>
-      <a href="/" class="${currentPath.length === 1 ? 'active' : ''}">Home</a>
+      <a href="/">Components</a>
+      <a href="/install.html">Install</a>
     </div>
   </nav>
 `;

@@ -3,7 +3,7 @@ import { html } from 'orison';
 export default context => html`
   <section>
     <div><h3>&lt;ziro-screen></h3></div>
-    <p>&lt;ziro-screen> allows you to build a bottom navigation based app with ease</p>
+    <p>&lt;ziro-screen> allows you to build a bottom navigation based app with ease. By default it takes up the full viewport. The &lt;ziro-screen> can be resized in order to use it on a subsection of the viewport.</p>
     <ziro-screen>
       <ziro-panel-set>
           <ziro-panel>

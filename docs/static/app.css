@@ -140,10 +140,11 @@ header img {
 footer {
   padding: 1rem;
   background: var(--tertiary-color);
+  color: rgba(255,255,255,0.7);
 }
 
 footer a {
-  color: rgba(0, 0, 0, 0.8);
+  color: rgba(255,255,255,0.7);
 }
 
 nav {

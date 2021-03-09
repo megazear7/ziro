@@ -2,7 +2,7 @@ import { html } from 'orison';
 
 export default context => html`
   <section>
-    <p>A set of web components for easily building apps.</p>
+    <p>Ziro Components is a set of web components for easily building apps.</p>
   </section>
   <section>
     <h3><a href="/ziro-screen.html">&lt;ziro-screen></a></h3>

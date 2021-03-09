@@ -1,5 +1,6 @@
 import { html } from 'orison';
 import header from '../partials/header.js';
+import nav from '../partials/nav.js';
 import footer from '../partials/footer.js';
 
 export default context => html`
@@ -45,6 +46,7 @@ export default context => html`
   </head>
   <body>
     ${header(context.root.data.title)}
+    ${nav()}
     <main>
       ${context.page.html}
     </main>
