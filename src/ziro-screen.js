@@ -20,6 +20,10 @@ class ZiroScreen extends HTMLElement {
             :host {
                 display: block;
                 box-sizing: border-box;
+                position: relative;
+                height: 100vh;
+                width: 100vw;
+                overflow-x: hidden;
             }
         `;
     }

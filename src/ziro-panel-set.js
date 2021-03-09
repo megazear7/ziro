@@ -11,24 +11,35 @@ class ZiroPanelSet extends HTMLElement {
     styles() {
         return css`
             :host {
-                display: block;
                 box-sizing: border-box;
-                --panel-index: 0vw;
+                height: 100%;
+                width: 100%;
+                overflow-x: hidden;
+                --panel-index: 0;
             }
 
             ::slotted(ziro-panel:nth-of-type(1)) {
-                left: calc(var(--panel-index) + 0vw);
-                background: #eee;
+                left: calc(-1 * var(--panel-index) * 100% + 0%);
             }
 
             ::slotted(ziro-panel:nth-of-type(2)) {
-                left: calc(var(--panel-index) + 100vw);
-                background: #ccc;
+                left: calc(-1 * var(--panel-index) * 100% + 100%);
             }
 
             ::slotted(ziro-panel:nth-of-type(3)) {
-                left: calc(var(--panel-index) + 200vw);
-                background: #aaa;
+                left: calc(-1 * var(--panel-index) * 100% + 200%);
+            }
+
+            ::slotted(ziro-panel:nth-of-type(4)) {
+                left: calc(-1 * var(--panel-index) * 100% + 300%);
+            }
+
+            ::slotted(ziro-panel:nth-of-type(5)) {
+                left: calc(-1 * var(--panel-index) * 100% + 400%);
+            }
+
+            ::slotted(ziro-panel:nth-of-type(6)) {
+                left: calc(-1 * var(--panel-index) * 100% + 500%);
             }
         `;
     }
@@ -49,7 +60,7 @@ class ZiroPanelSet extends HTMLElement {
         } else {
             this.index = index;
         }
-        this.style.setProperty('--panel-index', -(this.index * 100) + 'vw');
+        this.style.setProperty('--panel-index', this.index);
     }
 }
 

@@ -10,13 +10,13 @@ class ZiroPanel extends HTMLElement {
     style() {
         return css`
             :host {
-                position: fixed;
                 display: block;
+                position: absolute;
                 box-sizing: border-box;
                 overflow-x: hidden;
                 padding: 20px;
-                width: 100vw;
-                height: 100vh;
+                width: 100%;
+                height: 100%;
                 transition: left 300ms ease-in-out;
             }
         `;

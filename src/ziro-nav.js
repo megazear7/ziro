@@ -11,10 +11,10 @@ class ZiroNav extends HTMLElement {
         return css`
             :host {
                 display: flex;
-                width: 100vw;
+                width: 100%;
                 justify-content: center;
                 box-sizing: border-box;
-                position: fixed;
+                position: absolute;
                 bottom: 0;
                 border-top: 1px solid #aaa;
                 box-shadow: 0 0 20px 0px #aaa;

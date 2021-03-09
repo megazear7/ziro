@@ -15,10 +15,15 @@ export default context => html`
   </head>
   <body>
     ${header(context.root.data.title)}
+    ${nav(context.path)}
     <main>
       ${context.page.html}
     </main>
     ${footer()}
+
+    <link rel="stylesheet" href="/highlightjs/github.css">
+    <script src="/highlightjs/highlight.pack.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
   </body>
 </html>
 `;
