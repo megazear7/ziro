@@ -2,6 +2,22 @@
 
 A library of web components
 
+## Using
+
+```bash
+npm install ziro
+```
+
+```js
+import 'ziro';
+```
+
+```html
+<ziro-panel></ziro-panel>
+```
+
+## Contributing
+
 ### Install
 
 ```
@@ -16,9 +32,17 @@ npm start
 
 Open [localhost:8000/dev](http://localhost:8000/dev)
 
-## Documentation
+### Build
 
-## Build
+```
+npm run build
+```
+
+Then push to the master branch.
+
+### Documentation
+
+#### Build
 
 ```
 npm run docs:build

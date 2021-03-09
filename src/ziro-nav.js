@@ -5,9 +5,6 @@ class ZiroNav extends HTMLElement {
     connectedCallback() {
         this.attachShadow({mode: 'open'});
         this.shadowRoot.innerHTML = this.render();
-
-        this.addEventListener('ziro-nav-item-click', e => this.navItemClicked(e.target));
-        this.querySelector('ziro-nav-item:nth-of-type(1)').setAttribute('selected', '');
     }
 
     style() {
@@ -31,20 +28,6 @@ class ZiroNav extends HTMLElement {
             ${this.style()}
             <slot></slot>
         `
-    }
-
-    navItemClicked(navItem) {
-        this.querySelectorAll('ziro-nav-item').forEach((indexNavItem, index) => {
-            if (indexNavItem === navItem) {
-                indexNavItem.setAttribute('selected', '');
-                this.dispatchEvent(new CustomEvent('ziro-nav-click', {
-                    bubbles: true,
-                    detail: { panelSelected: index }
-                }));
-            } else {
-                indexNavItem.removeAttribute('selected');
-            }
-        });
     }
 }
 

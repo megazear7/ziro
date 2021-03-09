@@ -6,7 +6,6 @@ class ZiroPanelSet extends HTMLElement {
         this.attachShadow({mode: 'open'});
         this.index = 0;
         this.shadowRoot.innerHTML = this.render();
-        this.querySelector('ziro-panel:nth-of-type(1)').setAttribute('selected', '');
     }
 
     styles() {
@@ -50,8 +49,6 @@ class ZiroPanelSet extends HTMLElement {
         } else {
             this.index = index;
         }
-        this.querySelectorAll('ziro-panel').forEach(panel => panel.removeAttribute('selected'));
-        this.querySelector(`ziro-panel:nth-of-type(${this.index+1})`).setAttribute('selected', '');
         this.style.setProperty('--panel-index', -(this.index * 100) + 'vw');
     }
 }

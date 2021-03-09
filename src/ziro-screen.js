@@ -6,7 +6,13 @@ class ZiroScreen extends HTMLElement {
         this.attachShadow({mode: 'open'});
         this.shadowRoot.innerHTML = this.render();
 
-        this.addEventListener('ziro-nav-click', e => this.slideTo(e.detail.panelSelected));
+        this.addEventListener('ziro-nav-item-selected', e => this.navItemClicked(e.target));
+    
+        this.querySelectorAll('ziro-nav ziro-nav-item').forEach((navItem, index) => {
+            if (typeof navItem.attributes.selected !== 'undefined') {
+                this.slideTo(index);
+            }
+        })
     }
 
     style() {
@@ -16,6 +22,17 @@ class ZiroScreen extends HTMLElement {
                 box-sizing: border-box;
             }
         `;
+    }
+
+    navItemClicked(navItem) {
+        this.querySelectorAll('ziro-nav ziro-nav-item').forEach((indexNavItem, index) => {
+            if (indexNavItem === navItem) {
+                indexNavItem.setAttribute('selected', '');
+                this.slideTo(index);
+            } else {
+                indexNavItem.removeAttribute('selected');
+            }
+        });
     }
 
     render() {

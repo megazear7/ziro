@@ -7,9 +7,7 @@ class ZiroNavItem extends HTMLElement {
         this.shadowRoot.innerHTML = this.render();
 
         this.addEventListener('click', () => {
-            this.dispatchEvent(new CustomEvent('ziro-nav-item-click', {
-                bubbles: true
-            }));
+            this._dispatchNavItemClicked();
         });
     }
 
@@ -40,6 +38,12 @@ class ZiroNavItem extends HTMLElement {
             ${this.style()}
             <slot></slot>
         `
+    }
+
+    _dispatchNavItemClicked() {
+        this.dispatchEvent(new CustomEvent('ziro-nav-item-selected', {
+            bubbles: true
+        }));
     }
 }
 

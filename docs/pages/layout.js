@@ -10,6 +10,7 @@ export default context => html`
     <meta charset="UTF-8" />
     <title>${context.root.data.title}</title>
     <script src="/app.js"></script>
+    <script src="/ziro.bundled.js"></script>
     <link rel="stylesheet" type="text/css" href="/app.css">
   </head>
   <body>

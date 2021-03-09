@@ -169,3 +169,7 @@ ul.breadcrumb li+li:before {
   padding: 8px;
   content: "/\00a0";
 }
+
+.home ziro-screen {
+  /*position: relative;*/
+}

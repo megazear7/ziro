@@ -6,9 +6,10 @@
   "scripts": {
     "start": "es-dev-server --node-resolve --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docs:build": "orison build --srcDir docs/src --buildDir built-docs",
-    "docs:serve": "orison serve --srcDir docs/src",
-    "docs:static": "orison static --srcDir docs/src"
+    "build": "rollup -c",
+    "docs:build": "orison build --srcDir docs --buildDir built-docs",
+    "docs:serve": "orison serve --srcDir docs",
+    "docs:static": "orison static --srcDir docs"
   },
   "repository": {
     "type": "git",
@@ -27,5 +28,11 @@
   "dependencies": {
     "es-dev-server": "^2.1.0",
     "orison": "^1.3.4"
+  },
+  "devDependencies": {
+    "rollup": "^2.41.0",
+    "rollup-plugin-filesize": "^9.1.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-terser": "^7.0.2"
   }
 }
