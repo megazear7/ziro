@@ -55,3 +55,9 @@ Open [localhost:3000](http://localhost:3000)
 ```
 npm run docs:build
 ```
+
+## Support
+
+[Buy me a coffee](https://www.buymeacoffee.com/alexlockhart)
+
+[Patreon](https://www.patreon.com/alexlockhart)
