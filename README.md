@@ -42,10 +42,16 @@ Then push to the master branch.
 
 ### Documentation
 
+#### Serve
+
+```
+npm run docs:serve
+```
+
+Open [localhost:3000](http://localhost:3000)
+
 #### Build
 
 ```
 npm run docs:build
 ```
-
-Open [localhost:3000](http://localhost:3000)
