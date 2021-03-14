@@ -23,6 +23,7 @@ class ZiroScreen extends HTMLElement {
                 position: relative;
                 height: 100vh;
                 width: 100vw;
+                min-height: -webkit-fill-available;
                 overflow-x: hidden;
             }
         `;
