@@ -29,6 +29,7 @@ class ZiroNavItem extends HTMLElement {
 
             :host([selected]) {
                 background-color: #ddd;
+                cursor: auto;
             }
         `;
     }
