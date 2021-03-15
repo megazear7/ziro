@@ -17,7 +17,10 @@ class ZiroPanel extends HTMLElement {
         } else {
             this.removeAttribute('active');
         }
-        this.render();
+
+        if (this.shadowRoot) {
+            this.render();
+        }
     }
 
     style() {

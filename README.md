@@ -1,4 +1,4 @@
-# Ziro
+# Ziro Components
 
 A library of web components
 
@@ -39,6 +39,10 @@ npm run build
 ```
 
 Then push to the master branch.
+
+### Deploy
+
+Bump the package version in `package.json` and bump the service worker cache version in `docs/static/sw.js`. Then push changes to the `main` branch and run `npm publish`. Make sure all changes are detailed in the documentation.
 
 ### Documentation
 

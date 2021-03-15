@@ -60,7 +60,7 @@ class ZiroPanelSet extends HTMLElement {
     }
 
     slideTo(index) {
-        const oldIndex = this.index;
+        const oldIndex = this.index || 0;
         const panels = this.querySelectorAll('ziro-panel');
         
         if (index > panels.length-1) {
