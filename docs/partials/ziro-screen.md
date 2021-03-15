@@ -1,15 +1,15 @@
 
 #### HTML
 ```html
-<ziro-screen>
+<ziro-screen redirect>
     <ziro-panel-set speed="500">
         <ziro-panel active>
             <h3>Panel 1</h3>
         </ziro-panel>
-        <ziro-panel>
+        <ziro-panel path="/page2">
             <h3>Panel 2</h3>
         </ziro-panel>
-        <ziro-panel>
+        <ziro-panel path="/page3">
             <h3>Panel 3</h3>
         </ziro-panel>
     </ziro-panel-set>

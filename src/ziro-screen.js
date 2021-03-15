@@ -13,6 +13,26 @@ class ZiroScreen extends HTMLElement {
                 this.slideTo(index);
             }
         })
+
+        if (this.redirect) {
+            this.querySelectorAll('ziro-panel').forEach((panel, index) => {
+                if (panel.path === window.location.pathname) {
+                    this.slideTo(index);
+                }
+            });
+        }
+    }
+
+    get redirect() {
+        return this.attributes.redirect && this.attributes.redirect.value !== undefined || false;
+    }
+
+    set redirect(val) {
+        if (val) {
+            this.setAttribute('redirect', '');
+        } else {
+            this.removeAttribute('redirect');
+        }
     }
 
     style() {

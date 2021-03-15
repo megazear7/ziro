@@ -6,15 +6,16 @@ export default context => html`
     <p>&lt;ziro-screen> allows you to build a bottom navigation based app with ease. By default it takes up the full viewport. The &lt;ziro-screen> can be resized in order to use it on a subsection of the viewport.</p>
     <p>The panels will only render their contents when active. The 'next' panels is activated when the transition begins and the 'previous' panel is deactivated when the transition ends.</p>
     <p>The transition speed can be configued on the &lt;ziro-panel-set> element.</p>
-    <ziro-screen>
+    <p>If &lt;ziro-screen> has the redirect property, then any panel matching the configured path property will be activated by default.</p>
+    <ziro-screen redirect>
       <ziro-panel-set speed="500">
           <ziro-panel active>
               <h3>Panel 1</h3>
           </ziro-panel>
-          <ziro-panel>
+          <ziro-panel path="/page2">
               <h3>Panel 2</h3>
           </ziro-panel>
-          <ziro-panel>
+          <ziro-panel path="/page3">
               <h3>Panel 3</h3>
           </ziro-panel>
       </ziro-panel-set>

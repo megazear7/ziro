@@ -23,6 +23,22 @@ class ZiroPanel extends HTMLElement {
         }
     }
 
+    get path() {
+        if (this.attributes.path && this.attributes.path.value !== undefined) {
+            return this.attributes.path.value;
+        } else {
+            return undefined;
+        }
+    }
+
+    set path(val) {
+        if (val) {
+            this.setAttribute('path', '');
+        } else {
+            this.removeAttribute('path');
+        }
+    }
+
     style() {
         return css`
             :host {
