@@ -5,7 +5,11 @@ class ZiroPanelSet extends HTMLElement {
     connectedCallback() {
         this.attachShadow({mode: 'open'});
         this.index = 0;
-        this.shadowRoot.innerHTML = this.render();
+        this.render();
+    }
+
+    speed() {
+        return this.attributes.speed && this.attributes.speed.value || 300;
     }
 
     styles() {
@@ -16,6 +20,10 @@ class ZiroPanelSet extends HTMLElement {
                 width: 100%;
                 overflow-x: hidden;
                 --panel-index: 0;
+            }
+
+            ::slotted(ziro-panel) {
+                transition: left ${this.speed()}ms ease-in-out;
             }
 
             ::slotted(ziro-panel:nth-of-type(1)) {
@@ -45,22 +53,31 @@ class ZiroPanelSet extends HTMLElement {
     }
 
     render() {
-        return html`
+        this.shadowRoot.innerHTML = html`
             ${this.styles()}
             <slot></slot>
         `
     }
 
     slideTo(index) {
-        const panels = this.querySelectorAll('ziro-panel').length;
-        if (index > panels-1) {
-            this.index = panels-1;
+        const oldIndex = this.index;
+        const panels = this.querySelectorAll('ziro-panel');
+        
+        if (index > panels.length-1) {
+            this.index = panels.length-1;
         } else if (index < 0) {
             this.index = 0;
         } else {
             this.index = index;
         }
+
+        panels[index].active = true;
         this.style.setProperty('--panel-index', this.index);
+        if (oldIndex !== this.index) {
+            setTimeout(() => {
+                panels[oldIndex].active = false;
+            }, this.speed());
+        }
     }
 }
 

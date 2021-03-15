@@ -4,7 +4,20 @@ import css from './services/css.js';
 class ZiroPanel extends HTMLElement {
     connectedCallback() {
         this.attachShadow({mode: 'open'});
-        this.shadowRoot.innerHTML = this.render();
+        this.render();
+    }
+
+    get active() {
+        return this.attributes.active && this.attributes.active.value !== undefined || false;
+    }
+
+    set active(val) {
+        if (val) {
+            this.setAttribute('active', '');
+        } else {
+            this.removeAttribute('active');
+        }
+        this.render();
     }
 
     style() {
@@ -17,15 +30,14 @@ class ZiroPanel extends HTMLElement {
                 padding: 20px;
                 width: 100%;
                 height: 100%;
-                transition: left 300ms ease-in-out;
             }
         `;
     }
 
     render() {
-        return html`
+        this.shadowRoot.innerHTML = html`
             ${this.style()}
-            <slot></slot>
+            ${this.active ? html`<slot></slot>` : ''}
         `
     }
 }

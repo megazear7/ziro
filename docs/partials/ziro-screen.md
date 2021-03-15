@@ -2,8 +2,8 @@
 #### HTML
 ```html
 <ziro-screen>
-    <ziro-panel-set>
-        <ziro-panel>
+    <ziro-panel-set speed="500">
+        <ziro-panel active>
             <h3>Panel 1</h3>
         </ziro-panel>
         <ziro-panel>

@@ -9,7 +9,7 @@ export default context => html`
     <p>&lt;ziro-screen> allows you to build a bottom navigation based app with ease</p>
     <ziro-screen>
       <ziro-panel-set>
-          <ziro-panel>
+          <ziro-panel active>
               <h3>Panel 1</h3>
           </ziro-panel>
           <ziro-panel>

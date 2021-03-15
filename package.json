@@ -1,14 +1,15 @@
 {
   "name": "ziro-components",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A library of web components",
   "main": "src/ziro-components.js",
   "scripts": {
     "start": "es-dev-server --node-resolve --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup -c",
+    "build": "rollup --config",
+    "watch": "rollup --config --watch",
     "docs:build": "npm run build && orison build --srcDir docs --buildDir built-docs",
-    "docs:serve": "orison serve --srcDir docs",
+    "docs:serve": "npm run watch & orison serve --srcDir docs",
     "docs:static": "orison static --srcDir docs"
   },
   "repository": {
