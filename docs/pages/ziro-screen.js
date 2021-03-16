@@ -75,4 +75,28 @@ export default context => html`
     </ziro-screen>
     ${context.mdFile('./docs/partials/ziro-screen-3.md')}
   </section>
+  <section>
+    <h3>Browser History Example</h3>
+    <p>Setting the 'history' attributes on the &lt;ziro-screen> element integrates the component with the browser history. This needs to be used in conjunction with the path attributes.</p>
+    <p>Try clicking on the navigation buttons and watch the url in the browser. Then, hit the back and forward buttons.</p>
+    <ziro-screen history>
+      <ziro-panel-set>
+          <ziro-panel path="/">
+              <h3>Panel 1</h3>
+          </ziro-panel>
+          <ziro-panel path="/page2">
+              <h3>Panel 2</h3>
+          </ziro-panel>
+          <ziro-panel path="/ziro-screen.html">
+              <h3>Panel 3</h3>
+          </ziro-panel>
+      </ziro-panel-set>
+      <ziro-nav>
+          <ziro-nav-item>A</ziro-nav-item>
+          <ziro-nav-item>B</ziro-nav-item>
+          <ziro-nav-item>C</ziro-nav-item>
+      </ziro-nav>
+    </ziro-screen>
+    ${context.mdFile('./docs/partials/ziro-screen-4.md')}
+  </section>
 `;

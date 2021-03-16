@@ -25,6 +25,6 @@ export default context => html`
           <ziro-nav-item>C</ziro-nav-item>
       </ziro-nav>
     </ziro-screen>
-    ${context.mdFile('./docs/partials/ziro-screen.md')}
+    ${context.mdFile('./docs/partials/ziro-screen-1.md')}
   </section>
 `;

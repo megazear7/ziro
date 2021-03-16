@@ -15,32 +15,29 @@ class ZiroScreen extends HTMLElement {
             }
         });
 
-        this.addEventListener('ziro-panel-connected', e => {
-            const activePanelIndex = this._activePanelIndex();
+        this._forEachPanel(panel => this._initPanel(panel));
+        this.addEventListener('ziro-panel-connected', e => this._initPanel(e.target));
 
-            if (activePanelIndex === undefined || this._pathMatches(e.target.path)) {
-                e.target.active = true;
-            }
-        });
+        this._forEachNavItem(panel => this._initPanel(panel));
+        this.addEventListener('ziro-nav-item-connected', () => this._initNavItem());
 
-        this.addEventListener('ziro-nav-item-connected', () => {
-            const activePanelIndex = this._activePanelIndex();
-
-            if (activePanelIndex !== undefined) {
-                this.slideTo(activePanelIndex);
-            }
-        });
+        if (this.history) {
+            window.addEventListener('popstate', event => {
+                const lastIndex = event.state && typeof event.state.index === 'number' ? event.state.index : this.originalIndex || 0;
+                this.slideTo(lastIndex);
+            });
+        }
     }
 
-    get redirect() {
-        return this.attributes.redirect && this.attributes.redirect.value !== undefined || false;
+    get history() {
+        return this.attributes.history && this.attributes.history.value !== undefined || false;
     }
 
-    set redirect(val) {
+    set history(val) {
         if (val) {
-            this.setAttribute('redirect', '');
+            this.setAttribute('history', '');
         } else {
-            this.removeAttribute('redirect');
+            this.removeAttribute('history');
         }
     }
 
@@ -65,10 +62,15 @@ class ZiroScreen extends HTMLElement {
         `
     }
 
-    slideTo(index) {
+    slideTo(index, useHistory) {
+        useHistory = useHistory || false
         const panelSet = this.querySelector('ziro-panel-set');
 
         if (panelSet && typeof panelSet.slideTo === 'function') {
+            const panels = panelSet.querySelectorAll('ziro-panel');
+            if (useHistory && this.history && panels.length >= index && panels[index].path) {
+                history.pushState({ index: index }, document.title || '', panels[index].path);
+            }
             panelSet.slideTo(index);
         }
 
@@ -87,6 +89,30 @@ class ZiroScreen extends HTMLElement {
                 element.removeAttribute('active');
             }
         });
+    }
+
+    _initPanel(panel) {
+        const activePanelIndex = this._activePanelIndex();
+
+        if (activePanelIndex === undefined || this._pathMatches(panel.path)) {
+            this.originalIndex = activePanelIndex || 0;
+            panel.active = true;
+
+            this._forEachPanel((indexedPanel, index) => {
+                if (panel === indexedPanel) {
+                    this.originalIndex = index;
+                }
+            });
+        }
+    }
+
+    _initNavItem() {
+        const activePanelIndex = this._activePanelIndex();
+
+        if (activePanelIndex !== undefined) {
+            this.originalIndex = activePanelIndex;
+            this.slideTo(activePanelIndex, true);
+        }
     }
 
     _pathMatches(path) {
@@ -109,7 +135,7 @@ class ZiroScreen extends HTMLElement {
     _navItemClicked(navItem) {
         this._forEachNavItem((element, index) => {
             if (element === navItem) {
-                this.slideTo(index);
+                this.slideTo(index, true);
             }
         });
     }
