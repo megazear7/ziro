@@ -5,6 +5,10 @@ class ZiroPanel extends HTMLElement {
     connectedCallback() {
         this.attachShadow({mode: 'open'});
         this.render();
+
+        this.dispatchEvent(new CustomEvent('ziro-panel-connected', {
+            bubbles: true
+        }));
     }
 
     get active() {
@@ -12,10 +16,16 @@ class ZiroPanel extends HTMLElement {
     }
 
     set active(val) {
+        const oldVal = this.active;
+
         if (val) {
             this.setAttribute('active', '');
         } else {
             this.removeAttribute('active');
+        }
+
+        if (!!oldVal !== !!val) {
+            this._dispatchPanelChanged();
         }
 
         if (this.shadowRoot) {
@@ -58,6 +68,12 @@ class ZiroPanel extends HTMLElement {
             ${this.style()}
             ${this.active ? html`<slot></slot>` : ''}
         `
+    }
+
+    _dispatchPanelChanged() {
+        this.dispatchEvent(new CustomEvent('ziro-panel-changed', {
+            bubbles: true
+        }));
     }
 }
 

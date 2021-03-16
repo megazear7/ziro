@@ -9,6 +9,10 @@ class ZiroNavItem extends HTMLElement {
         this.addEventListener('click', () => {
             this._dispatchNavItemClicked();
         });
+
+        this.dispatchEvent(new CustomEvent('ziro-nav-item-connected', {
+            bubbles: true
+        }));
     }
 
     style() {
