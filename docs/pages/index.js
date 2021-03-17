@@ -1,4 +1,5 @@
 import { html } from 'orison';
+import slidePageCode1 from '../partials/ziro-slide-page-code-1.js';
 
 export default context => html`
   <section>
@@ -25,6 +26,9 @@ export default context => html`
           <ziro-nav-item>C</ziro-nav-item>
       </ziro-nav>
     </ziro-screen>
-    ${context.mdFile('./docs/partials/ziro-screen-1.md')}
+  </section>
+  <section class="slide-page">
+    <h3><a href="/ziro-slide-page.html">&lt;ziro-slide-page></a></h3>
+    ${slidePageCode1()}
   </section>
 `;
