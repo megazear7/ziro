@@ -36,13 +36,15 @@ class ZiroSlidePage extends HTMLElement {
         const container = this._container();
         if (container) {
             container.classList.toggle('active', this.active);
+        }
 
+        const slotContainer = this._slotContainer();
+        if (slotContainer) {
             if (this.active && ! this._contentLoaded()) {
-                container.innerHTML = this._contents();
-                this._addEventListeners();
+                slotContainer.innerHTML = this._slot();
             } else if (!this.active && this._contentLoaded()) {
                 setTimeout(() => {
-                    container.innerHTML = '';
+                    slotContainer.innerHTML = '';
                 }, this.speed);
             }
         }
@@ -127,10 +129,13 @@ class ZiroSlidePage extends HTMLElement {
         this.shadowRoot.innerHTML = html`
             ${this.style()}
             ${buttonStyles}
-            <div class="container">
-                ${this.active ? html`
-                    ${this._contents()}
-                ` : ''}
+            <div part="outer" class="container">
+                <div part="inner">
+                    <button> Back</button>
+                    <div class="slot-container">
+                        ${this.active ? html`${this._slot()}` : ''}
+                    </div>
+                </div>
             </div>
         `;
 
@@ -141,11 +146,14 @@ class ZiroSlidePage extends HTMLElement {
         return this.shadowRoot && this.shadowRoot.querySelector('slot')
     }
 
-    _contents() {
+    _slot() {
         return html`
-            <button> Back</button>
             <slot></slot>
         `;
+    }
+
+    _slotContainer() {
+        return this.shadowRoot && this.shadowRoot.querySelector('.slot-container');
     }
 
     _container() {
