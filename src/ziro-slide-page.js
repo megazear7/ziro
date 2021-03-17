@@ -33,8 +33,18 @@ class ZiroSlidePage extends HTMLElement {
             }
         }
 
-        if (this.shadowRoot) {
-            this.render();
+        const container = this._container();
+        if (container) {
+            container.classList.toggle('active', this.active);
+
+            if (this.active && ! this._contentLoaded()) {
+                container.innerHTML = this._contents();
+                this._addEventListeners();
+            } else if (!this.active && this._contentLoaded()) {
+                setTimeout(() => {
+                    container.innerHTML = '';
+                }, this.speed);
+            }
         }
     }
 
@@ -84,7 +94,7 @@ class ZiroSlidePage extends HTMLElement {
 
     style() {
         return css`
-            :host {
+            .container {
                 display: block;
                 position: absolute;
                 top: 0;
@@ -98,7 +108,7 @@ class ZiroSlidePage extends HTMLElement {
                 transition: left ${this.speed}ms ease-in-out;
             }
 
-            :host([active]) {
+            .container.active {
                 left: 0%;
             }
 
@@ -117,15 +127,29 @@ class ZiroSlidePage extends HTMLElement {
         this.shadowRoot.innerHTML = html`
             ${this.style()}
             ${buttonStyles}
-            ${this.active ? html`
-                <div class="container">
-                    <button> Back</button>
-                    <slot></slot>
-                </div>
-            ` : ''}
+            <div class="container">
+                ${this.active ? html`
+                    ${this._contents()}
+                ` : ''}
+            </div>
         `;
 
         this._addEventListeners();
+    }
+
+    _contentLoaded() {
+        return this.shadowRoot && this.shadowRoot.querySelector('slot')
+    }
+
+    _contents() {
+        return html`
+            <button> Back</button>
+            <slot></slot>
+        `;
+    }
+
+    _container() {
+        return this.shadowRoot && this.shadowRoot.querySelector('.container');
     }
 
     _addEventListeners() {
