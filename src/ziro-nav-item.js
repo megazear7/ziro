@@ -16,25 +16,64 @@ class ZiroNavItem extends HTMLElement {
         }));
     }
 
+    static get observedAttributes() { return ['selected']; }
+
+    attributeChangedCallback(name, oldValue, newValue) {
+        const button = this._button();
+        if (this.selected) {
+            button.tabIndex = '-1';
+        } else {
+            button.tabIndex = '0';
+        }
+    }
+
+    get selected() {
+        return this.hasAttribute('selected');
+    }
+
+    set selected(val) {
+        const button = this._button();
+        if (val) {
+            this.setAttribute('selected', '');
+            if (button) {
+                button.tabIndex = '-1';
+            }
+        } else {
+            this.removeAttribute('selected');
+            if (button) {
+                button.tabIndex = '0';
+            }
+        }
+    }
+
     style() {
         return css`
             :host {
+                display: block;
                 flex-grow: 1;
-                text-align: center;
                 max-width: 200px;
+            }
+
+            button {
+                text-align: center;
+                width: 100%;
                 padding: var(--space-medium);
                 cursor: pointer;
                 background-color: var(--background-color);
                 color: var(--background-text-color);
                 transition: background-color var(--transition-speed) ease-in-out;
+                background: none;
+                border: none;
+                outline: none;
             }
 
-            :host(:hover) {
+            button:hover, button:focus {
+                outline: none;
                 background-color: var(--primary-color);
                 color: var(--primary-text-color);
             }
 
-            :host([selected]) {
+            :host([selected]) button {
                 background-color: var(--selected-color);
                 color: var(--selected-text-color);
                 cursor: auto;
@@ -46,8 +85,14 @@ class ZiroNavItem extends HTMLElement {
         return html`
             ${theme}
             ${this.style()}
-            <slot></slot>
+            <button tabindex="${this.selected ? '-1' : '0'}">
+                <slot></slot>
+            </button>
         `
+    }
+
+    _button() {
+        return this.shadowRoot && this.shadowRoot.querySelector('button');
     }
 
     _dispatchNavItemClicked() {

@@ -157,7 +157,10 @@ class ZiroSlidePage extends HTMLElement {
             }
 
             button:before {
-                content: "\\2190 ";
+                content: "\\2190 \\a0 Back";
+                font-size: var(--font-size-medium);
+                line-height: var(--font-size-medium);
+                vertical-align: middle;
             }
         `;
     }
@@ -169,7 +172,7 @@ class ZiroSlidePage extends HTMLElement {
             ${this.style()}
             <div part="outer" class="container">
                 <div part="inner">
-                    <button> Back</button>
+                    <button part="button"></button>
                     <div class="slot-container">
                         ${this.active ? html`${this._slot()}` : ''}
                     </div>
