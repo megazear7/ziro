@@ -13,19 +13,28 @@ class ZiroSlidePage extends HTMLElement {
             bubbles: true
         }));
 
-        window.addEventListener('popstate', event => {
-            if (this.path) {
-                this.active = pathMatches(this.path);
+        this.addEventListener('ziro-closed', e => {
+            e.stopPropagation();
+            if (this.active) {
+                this.active = false;
             }
         });
 
         if (this.path) {
-            this.active = pathMatches(this.path);
+            const pathMatched = pathMatches(this.path);
+
+            if (this.active !== pathMatched) {
+                this.active = pathMatched;
+            }
         }
 
-        if (this.history) {
-            window.addEventListener('popstate', event => {
-                this.active = false;
+        if (this.history && this.path) {
+            window.addEventListener('popstate', () => {
+                const pathMatched = pathMatches(this.path);
+
+                if (this.active !== pathMatched) {
+                    this.active = pathMatched;
+                }
             });
         }
     }
@@ -37,39 +46,41 @@ class ZiroSlidePage extends HTMLElement {
     set active(val) {
         const oldVal = this.active;
 
-        if (val) {
-            this.setAttribute('active', '');
-        } else {
-            this.removeAttribute('active');
-        }
+        if (val !== oldVal) {
+            if (val && !this.hasAttribute('active')) {
+                this.setAttribute('active', '');
+            } else if (!val && this.hasAttribute('active')) {
+                this.removeAttribute('active');
+            }
 
-        if (!!oldVal !== !!val) {
-            if (this.active) {
-                this._dispatchOpened();
-                if (this.history) {
-                    history.pushState({ }, document.title || '', this.path);
-                }
-            } else {
-                this._dispatchClosed();
-                if (this.history) {
-                    window.history.back();
+            if (!!oldVal !== !!val) {
+                if (this.active) {
+                    this._dispatchOpened();
+                    if (this.history) {
+                        history.pushState({ }, document.title || '', this.path);
+                    }
+                } else {
+                    this._dispatchClosed();
+                    if (this.history) {
+                        window.history.back();
+                    }
                 }
             }
-        }
 
-        const container = this._container();
-        if (container) {
-            container.classList.toggle('active', this.active);
-        }
+            const container = this._container();
+            if (container) {
+                container.classList.toggle('active', this.active);
+            }
 
-        const slotContainer = this._slotContainer();
-        if (slotContainer) {
-            if (this.active && ! this._contentLoaded()) {
-                slotContainer.innerHTML = this._slot();
-            } else if (!this.active && this._contentLoaded()) {
-                setTimeout(() => {
-                    slotContainer.innerHTML = '';
-                }, this.speed);
+            const slotContainer = this._slotContainer();
+            if (slotContainer) {
+                if (this.active && ! this._contentLoaded()) {
+                    slotContainer.innerHTML = this._slot();
+                } else if (!this.active && this._contentLoaded()) {
+                    setTimeout(() => {
+                        slotContainer.innerHTML = '';
+                    }, this.speed);
+                }
             }
         }
     }
@@ -119,11 +130,15 @@ class ZiroSlidePage extends HTMLElement {
     }
 
     open() {
-        this.active = true;
+        if (!this.active) {
+            this.active = true;
+        }
     }
 
     close() {
-        this.active = false;
+        if (this.active) {
+            this.active = false;
+        }
     }
 
     toggle() {
@@ -172,15 +187,12 @@ class ZiroSlidePage extends HTMLElement {
             ${this.style()}
             <div part="outer" class="container">
                 <div part="inner">
-                    <button part="button"></button>
                     <div class="slot-container">
                         ${this.active ? html`${this._slot()}` : ''}
                     </div>
                 </div>
             </div>
         `;
-
-        this._addEventListeners();
     }
 
     _contentLoaded() {
@@ -199,14 +211,6 @@ class ZiroSlidePage extends HTMLElement {
 
     _container() {
         return this.shadowRoot && this.shadowRoot.querySelector('.container');
-    }
-
-    _addEventListeners() {
-        const button = this.shadowRoot.querySelector('button');
-        
-        if (button) {
-            button.addEventListener('click', () => this.close());
-        }
     }
 
     _dispatchOpened() {

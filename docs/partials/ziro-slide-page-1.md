@@ -5,6 +5,7 @@
         <button id="open-btn">Open Settings</button>
     </div>
     <ziro-slide-page id="page-to-open">
+        <ziro-closer>&larr; Close</ziro-closer>
         <h2>Settings</h2>
         <p>Lorem ipsum...</p>
     </ziro-slide-page>
