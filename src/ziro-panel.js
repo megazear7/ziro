@@ -1,12 +1,9 @@
 import html from './services/html.js';
 import css from './services/css.js';
-import theme from './styles/theme.js';
+import ZiroComponent from './ziro-component.js';
 
-class ZiroPanel extends HTMLElement {
-    connectedCallback() {
-        this.attachShadow({mode: 'open'});
-        this.render();
-
+class ZiroPanel extends ZiroComponent {
+    readyCallback() {
         this.dispatchEvent(new CustomEvent('ziro-panel-connected', {
             bubbles: true
         }));
@@ -18,11 +15,20 @@ class ZiroPanel extends HTMLElement {
 
     set active(val) {
         const oldVal = this.active;
+        const container = this._container();
 
         if (val) {
             this.setAttribute('active', '');
+
+            if (container) {
+                container.innerHTML = this._slot();
+            }
         } else {
             this.removeAttribute('active');
+
+            if (container) {
+                container.innerHTML = '';
+            }
         }
 
         if (!!oldVal !== !!val) {
@@ -50,14 +56,14 @@ class ZiroPanel extends HTMLElement {
         }
     }
 
-    style() {
+    styles() {
         return css`
             :host {
                 display: block;
                 position: absolute;
                 box-sizing: border-box;
                 overflow-x: hidden;
-                padding: var(--space-medium);
+                padding: var(--zc-space-medium);
                 width: 100%;
                 height: 100%;
             }
@@ -65,11 +71,19 @@ class ZiroPanel extends HTMLElement {
     }
 
     render() {
-        this.shadowRoot.innerHTML = html`
-            ${theme}
-            ${this.style()}
-            ${this.active ? html`<slot></slot>` : ''}
+        return html`
+            <div id="container">
+                ${this.active ? this._slot() : ''}
+            </div>
         `
+    }
+
+    _container() {
+        return this.shadowRoot && this.shadowRoot.getElementById('container');
+    }
+
+    _slot() {
+        return html`<slot></slot>`;
     }
 
     _dispatchPanelChanged() {

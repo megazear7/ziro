@@ -1,23 +1,21 @@
 import html from './services/html.js';
 import css from './services/css.js';
 import buttonStyles from './styles/button.js';
-import theme from './styles/theme.js';
-import { pathMatches } from './services/path.js';
+import ZiroComponent from './ziro-component.js';
 
-class ZiroCloser extends HTMLElement {
-    connectedCallback() {
-        this.attachShadow({mode: 'open'});
-        this.render();
-
+class ZiroCloser extends ZiroComponent {
+    readyCallback() {
         this.dispatchEvent(new CustomEvent('ziro-closer-connected', {
             bubbles: true
         }));
 
+        this.adoptStyles();
+
         this.shadowRoot.querySelector('button').addEventListener('click', () => this._dispatchClosed());
     }
 
-    style() {
-        return css`
+    styles() {
+        return [buttonStyles, css`
             .container {
                 display: block;
                 position: absolute;
@@ -25,11 +23,11 @@ class ZiroCloser extends HTMLElement {
                 left: -100%;
                 box-sizing: border-box;
                 overflow-x: hidden;
-                padding: var(--space-medium);
+                padding: var(--zc-space-medium);
                 width: 100%;
                 height: 100%;
-                background-color: var(--background-color);
-                color: var(--background-text-color);
+                background-color: var(--zc-background-color);
+                color: var(--zc-background-text-color);
                 transition: left ${this.speed}ms ease-in-out;
             }
 
@@ -41,14 +39,11 @@ class ZiroCloser extends HTMLElement {
                 width: 100%;
                 text-align: left;
             }
-        `;
+        `];
     }
 
     render() {
-        this.shadowRoot.innerHTML = html`
-            ${theme}
-            ${buttonStyles}
-            ${this.style()}
+        return html`
             <button part="button"><slot></slot></button>
         `;
     }

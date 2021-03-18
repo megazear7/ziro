@@ -1,12 +1,10 @@
 import html from './services/html.js';
 import css from './services/css.js';
-import theme from './styles/theme.js';
+import ZiroComponent from './ziro-component.js';
 
-class ZiroPanelSet extends HTMLElement {
-    connectedCallback() {
-        this.attachShadow({mode: 'open'});
+class ZiroPanelSet extends ZiroComponent {
+    readyCallback() {
         this.index = 0;
-        this.render();
     }
 
     speed() {
@@ -20,7 +18,7 @@ class ZiroPanelSet extends HTMLElement {
                 height: 100%;
                 width: 100%;
                 overflow-x: hidden;
-                --panel-index: 0;
+                --zc-panel-index: 0;
             }
 
             ::slotted(ziro-panel) {
@@ -28,35 +26,33 @@ class ZiroPanelSet extends HTMLElement {
             }
 
             ::slotted(ziro-panel:nth-of-type(1)) {
-                left: calc(-1 * var(--panel-index) * 100% + 0%);
+                left: calc(-1 * var(--zc-panel-index) * 100% + 0%);
             }
 
             ::slotted(ziro-panel:nth-of-type(2)) {
-                left: calc(-1 * var(--panel-index) * 100% + 100%);
+                left: calc(-1 * var(--zc-panel-index) * 100% + 100%);
             }
 
             ::slotted(ziro-panel:nth-of-type(3)) {
-                left: calc(-1 * var(--panel-index) * 100% + 200%);
+                left: calc(-1 * var(--zc-panel-index) * 100% + 200%);
             }
 
             ::slotted(ziro-panel:nth-of-type(4)) {
-                left: calc(-1 * var(--panel-index) * 100% + 300%);
+                left: calc(-1 * var(--zc-panel-index) * 100% + 300%);
             }
 
             ::slotted(ziro-panel:nth-of-type(5)) {
-                left: calc(-1 * var(--panel-index) * 100% + 400%);
+                left: calc(-1 * var(--zc-panel-index) * 100% + 400%);
             }
 
             ::slotted(ziro-panel:nth-of-type(6)) {
-                left: calc(-1 * var(--panel-index) * 100% + 500%);
+                left: calc(-1 * var(--zc-panel-index) * 100% + 500%);
             }
         `;
     }
 
     render() {
-        this.shadowRoot.innerHTML = html`
-            ${theme}
-            ${this.styles()}
+        return html`
             <slot></slot>
         `
     }
@@ -74,7 +70,7 @@ class ZiroPanelSet extends HTMLElement {
         }
 
         panels[index].active = true;
-        this.style.setProperty('--panel-index', this.index);
+        this.style.setProperty('--zc-panel-index', this.index);
         if (oldIndex !== this.index) {
             setTimeout(() => {
                 panels[oldIndex].active = false;

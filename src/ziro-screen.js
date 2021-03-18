@@ -1,13 +1,10 @@
 import html from './services/html.js';
 import css from './services/css.js';
-import theme from './styles/theme.js';
 import { pathMatches } from './services/path.js';
+import ZiroComponent from './ziro-component.js';
 
-class ZiroScreen extends HTMLElement {
-    connectedCallback() {
-        this.attachShadow({mode: 'open'});
-        this.shadowRoot.innerHTML = this.render();
-
+class ZiroScreen extends ZiroComponent {
+    readyCallback() {
         this.addEventListener('ziro-nav-item-selected', e => this._navItemClicked(e.target));
         this.addEventListener('ziro-panel-changed', e => this._panelChanged(e.target));
     
@@ -43,7 +40,7 @@ class ZiroScreen extends HTMLElement {
         }
     }
 
-    style() {
+    styles() {
         return css`
             :host {
                 display: block;
@@ -59,8 +56,6 @@ class ZiroScreen extends HTMLElement {
 
     render() {
         return html`
-            ${theme}
-            ${this.style()}
             <slot></slot>
         `
     }

@@ -1,12 +1,9 @@
 import html from './services/html.js';
 import css from './services/css.js';
-import theme from './styles/theme.js';
+import ZiroComponent from './ziro-component.js';
 
-class ZiroNavItem extends HTMLElement {
-    connectedCallback() {
-        this.attachShadow({mode: 'open'});
-        this.shadowRoot.innerHTML = this.render();
-
+class ZiroNavItem extends ZiroComponent {
+    readyCallback() {
         this.addEventListener('click', () => {
             this._dispatchNavItemClicked();
         });
@@ -46,7 +43,7 @@ class ZiroNavItem extends HTMLElement {
         }
     }
 
-    style() {
+    styles() {
         return css`
             :host {
                 display: block;
@@ -57,11 +54,11 @@ class ZiroNavItem extends HTMLElement {
             button {
                 text-align: center;
                 width: 100%;
-                padding: var(--space-medium);
+                padding: var(--zc-space-medium);
                 cursor: pointer;
-                background-color: var(--background-color);
-                color: var(--background-text-color);
-                transition: background-color var(--transition-speed) ease-in-out;
+                background-color: var(--zc-background-color);
+                color: var(--zc-background-text-color);
+                transition: background-color var(--zc-transition-speed) ease-in-out;
                 background: none;
                 border: none;
                 outline: none;
@@ -69,13 +66,13 @@ class ZiroNavItem extends HTMLElement {
 
             button:hover, button:focus {
                 outline: none;
-                background-color: var(--primary-color);
-                color: var(--primary-text-color);
+                background-color: var(--zc-primary-color);
+                color: var(--zc-primary-text-color);
             }
 
             :host([selected]) button {
-                background-color: var(--selected-color);
-                color: var(--selected-text-color);
+                background-color: var(--zc-selected-color);
+                color: var(--zc-selected-text-color);
                 cursor: auto;
             }
         `;
@@ -83,8 +80,6 @@ class ZiroNavItem extends HTMLElement {
 
     render() {
         return html`
-            ${theme}
-            ${this.style()}
             <button tabindex="${this.selected ? '-1' : '0'}">
                 <slot></slot>
             </button>

@@ -4,12 +4,15 @@
     <ziro-panel-set>
         <ziro-panel>
             <h3>Panel 1</h3>
+            <p>Lorem ipsum...</p>
         </ziro-panel>
         <ziro-panel>
             <h3>Panel 2</h3>
+            <p>Lorem ipsum...</p>
         </ziro-panel>
         <ziro-panel>
             <h3>Panel 3</h3>
+            <p>Lorem ipsum...</p>
         </ziro-panel>
     </ziro-panel-set>
     <ziro-nav>
