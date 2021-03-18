@@ -1,5 +1,6 @@
 import html from './services/html.js';
 import css from './services/css.js';
+import theme from './styles/theme.js';
 
 class ZiroPanelSet extends HTMLElement {
     connectedCallback() {
@@ -54,6 +55,7 @@ class ZiroPanelSet extends HTMLElement {
 
     render() {
         this.shadowRoot.innerHTML = html`
+            ${theme}
             ${this.styles()}
             <slot></slot>
         `

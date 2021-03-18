@@ -1,5 +1,7 @@
 import html from './services/html.js';
 import css from './services/css.js';
+import theme from './styles/theme.js';
+import { pathMatches } from './services/path.js';
 
 class ZiroScreen extends HTMLElement {
     connectedCallback() {
@@ -57,6 +59,7 @@ class ZiroScreen extends HTMLElement {
 
     render() {
         return html`
+            ${theme}
             ${this.style()}
             <slot></slot>
         `
@@ -94,7 +97,7 @@ class ZiroScreen extends HTMLElement {
     _initPanel(panel) {
         const activePanelIndex = this._activePanelIndex();
 
-        if (activePanelIndex === undefined || this._pathMatches(panel.path)) {
+        if (activePanelIndex === undefined || pathMatches(panel.path)) {
             this.originalIndex = activePanelIndex || 0;
             panel.active = true;
 
@@ -112,23 +115,6 @@ class ZiroScreen extends HTMLElement {
         if (activePanelIndex !== undefined) {
             this.originalIndex = activePanelIndex;
             this.slideTo(activePanelIndex, true);
-        }
-    }
-
-    _pathMatches(path) {
-        const pathSegments = typeof path === 'string' ? path.split('/') : [];
-        const urlPathSegments = window.location.pathname.split('/');
-
-        if (pathSegments.length >= 2) {
-            let matches = true;
-            pathSegments.forEach((segment, index) => {
-                if (segment !== urlPathSegments[index]) {
-                    matches = false;
-                }
-            });
-            return matches;
-        } else {
-            return false;
         }
     }
 

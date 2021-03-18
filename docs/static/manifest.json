@@ -4,7 +4,7 @@
   "description": "A set of web components for easily building apps.",
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#F4A261",
+  "theme_color": "#ff3333",
   "background_color": "#264653",
   "icons": [
     {

@@ -40,7 +40,7 @@ function replacePage(fragmentHtml, path) {
 }
 
 window.addEventListener('popstate', event => {
-  event.state && event.state.fragmentHtml
+  event.state && event.pathname && event.state.fragmentHtml
     ? replacePage(event.state.fragmentHtml, event.pathname)
     : loadFragment(document.location.pathname);
 });

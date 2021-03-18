@@ -17,7 +17,7 @@ export default context => html`
     <meta name="description" content="A set of web components for easily building apps">
     <link rel="icon" href="/icons/favicon.ico">
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#F4A261">
+    <meta name="theme-color" content="#ff3333">
 
     <!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
     <meta name="mobile-web-app-capable" content="yes">
@@ -34,7 +34,7 @@ export default context => html`
 
     <!-- Tile icon for Windows 8 (144x144 + tile color) -->
     <meta name="msapplication-TileImage" content="icons/icon-512x512.png">
-    <meta name="msapplication-TileColor" content="#F4A261">
+    <meta name="msapplication-TileColor" content="#ff3333">
     <meta name="msapplication-tap-highlight" content="no">
 
     <!-- Default twitter cards -->

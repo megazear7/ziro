@@ -1,6 +1,8 @@
 import html from './services/html.js';
 import css from './services/css.js';
 import buttonStyles from './styles/button.js';
+import theme from './styles/theme.js';
+import { pathMatches } from './services/path.js';
 
 class ZiroSlidePage extends HTMLElement {
     connectedCallback() {
@@ -10,6 +12,22 @@ class ZiroSlidePage extends HTMLElement {
         this.dispatchEvent(new CustomEvent('ziro-slide-page-connected', {
             bubbles: true
         }));
+
+        window.addEventListener('popstate', event => {
+            if (this.path) {
+                this.active = pathMatches(this.path);
+            }
+        });
+
+        if (this.path) {
+            this.active = pathMatches(this.path);
+        }
+
+        if (this.history) {
+            window.addEventListener('popstate', event => {
+                this.active = false;
+            });
+        }
     }
 
     get active() {
@@ -28,8 +46,14 @@ class ZiroSlidePage extends HTMLElement {
         if (!!oldVal !== !!val) {
             if (this.active) {
                 this._dispatchOpened();
+                if (this.history) {
+                    history.pushState({ }, document.title || '', this.path);
+                }
             } else {
                 this._dispatchClosed();
+                if (this.history) {
+                    window.history.back();
+                }
             }
         }
 
@@ -63,6 +87,18 @@ class ZiroSlidePage extends HTMLElement {
             this.setAttribute('path', '');
         } else {
             this.removeAttribute('path');
+        }
+    }
+
+    get history() {
+        return this.attributes.history && this.attributes.history.value !== undefined;
+    }
+
+    set history(val) {
+        if (val) {
+            this.setAttribute('history', '');
+        } else {
+            this.removeAttribute('history');
         }
     }
 
@@ -103,10 +139,11 @@ class ZiroSlidePage extends HTMLElement {
                 left: -100%;
                 box-sizing: border-box;
                 overflow-x: hidden;
-                padding: 20px;
+                padding: var(--space-medium);
                 width: 100%;
                 height: 100%;
-                background-color: white;
+                background-color: var(--background-color);
+                color: var(--background-text-color);
                 transition: left ${this.speed}ms ease-in-out;
             }
 
@@ -127,8 +164,9 @@ class ZiroSlidePage extends HTMLElement {
 
     render() {
         this.shadowRoot.innerHTML = html`
-            ${this.style()}
+            ${theme}
             ${buttonStyles}
+            ${this.style()}
             <div part="outer" class="container">
                 <div part="inner">
                     <button> Back</button>

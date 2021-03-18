@@ -1,5 +1,6 @@
 import html from './services/html.js';
 import css from './services/css.js';
+import theme from './styles/theme.js';
 
 class ZiroNavItem extends HTMLElement {
     connectedCallback() {
@@ -21,18 +22,21 @@ class ZiroNavItem extends HTMLElement {
                 flex-grow: 1;
                 text-align: center;
                 max-width: 200px;
-                padding: 20px;
+                padding: var(--space-medium);
                 cursor: pointer;
-                background-color: white;
-                transition: background-color 300ms ease-in-out;
+                background-color: var(--background-color);
+                color: var(--background-text-color);
+                transition: background-color var(--transition-speed) ease-in-out;
             }
 
             :host(:hover) {
-                background-color: #bbb;
+                background-color: var(--primary-color);
+                color: var(--primary-text-color);
             }
 
             :host([selected]) {
-                background-color: #ddd;
+                background-color: var(--selected-color);
+                color: var(--selected-text-color);
                 cursor: auto;
             }
         `;
@@ -40,6 +44,7 @@ class ZiroNavItem extends HTMLElement {
 
     render() {
         return html`
+            ${theme}
             ${this.style()}
             <slot></slot>
         `

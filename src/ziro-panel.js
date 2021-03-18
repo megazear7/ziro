@@ -1,5 +1,6 @@
 import html from './services/html.js';
 import css from './services/css.js';
+import theme from './styles/theme.js';
 
 class ZiroPanel extends HTMLElement {
     connectedCallback() {
@@ -56,7 +57,7 @@ class ZiroPanel extends HTMLElement {
                 position: absolute;
                 box-sizing: border-box;
                 overflow-x: hidden;
-                padding: 20px;
+                padding: var(--space-medium);
                 width: 100%;
                 height: 100%;
             }
@@ -65,6 +66,7 @@ class ZiroPanel extends HTMLElement {
 
     render() {
         this.shadowRoot.innerHTML = html`
+            ${theme}
             ${this.style()}
             ${this.active ? html`<slot></slot>` : ''}
         `
