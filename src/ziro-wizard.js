@@ -53,26 +53,29 @@ class ZiroWizard extends ZiroComponent {
         }
     }
 
-
     get active() {
         if (this.attributes.active && this.attributes.active.value !== undefined) {
-            return this.attributes.active.value === '' || !! this.attributes.active.value;
+            return val === '' || !! val && val !== 'false';
         } else {
             return false;
         }
     }
 
     set active(val) {
-        if (val && this.active === false) {
+        if (val) {
             this.setAttribute('active', '');
-            this.shadowRoot.innerHTML = this._slot();
-            this.style.left = '0';
-        } else if (!val && this.active === true) {
+            if (this.shadowRoot) {
+                this.shadowRoot.innerHTML = this._slot();
+                this.style.left = '0';
+            }
+        } else {
             this.removeAttribute('active');
-            this.style.left = '100%';
-            setTimeout(() => {
-                this.shadowRoot.innerHTML = '';
-            }, this.speed);
+            if (this.shadowRoot) {
+                this.style.left = '100%';
+                setTimeout(() => {
+                    this.shadowRoot.innerHTML = '';
+                }, this.speed);
+            }
         }
     }
 
@@ -90,6 +93,7 @@ class ZiroWizard extends ZiroComponent {
                 top: 0;
                 left: 100%;
                 transition: left ${this.speed}ms ease-in-out;
+                background: white;
             }
 
             ::slotted(ziro-panel) {
@@ -186,6 +190,10 @@ class ZiroWizard extends ZiroComponent {
     _close() {
         this.active = false;
         setTimeout(() => this.slideTo(0), this.speed);
+
+        this.dispatchEvent(new CustomEvent('ziro-wizard-closed', {
+            bubbles: true
+        }));
     }
 
     _slot() {
