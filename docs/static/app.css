@@ -251,7 +251,7 @@ ziro-panel p {
   line-height: 32px;
 }
 
-.slide-page .well {
+.well {
   position: relative;
   width: 100%;
   height: 400px;
@@ -260,11 +260,11 @@ ziro-panel p {
   overflow: hidden;
 }
 
-.slide-page .outer-page {
+.outer-page {
   padding: 20px;
 }
 
-.slide-page button {
+button {
   border: none;
   background: none;
   background-color: #ddd;
@@ -276,7 +276,7 @@ ziro-panel p {
   transition: color 300ms ease-in-out, background-color 300ms ease-in-out;
 }
 
-.slide-page button:hover, .slide-page button.focus {
+button:hover, button.focus {
   background-color: #ff3333;
   color: white;
   outline: none;

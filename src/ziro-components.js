@@ -5,3 +5,5 @@ import './ziro-nav.js';
 import './ziro-screen.js';
 import './ziro-slide-page.js';
 import './ziro-closer.js';
+import './ziro-wizard.js';
+import './ziro-wizard-nav.js';
