@@ -17,10 +17,12 @@ class ZiroNavItem extends ZiroComponent {
 
     attributeChangedCallback(name, oldValue, newValue) {
         const button = this._button();
-        if (this.selected) {
-            button.tabIndex = '-1';
-        } else {
-            button.tabIndex = '0';
+        if (button) {
+            if (this.selected) {
+                button.tabIndex = '-1';
+            } else {
+                button.tabIndex = '0';
+            }
         }
     }
 

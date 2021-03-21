@@ -18,9 +18,22 @@
             ziro-panel:nth-of-type(3) {
                 background: #dff;
             }
+
+            .spash-container {
+                width: 200px;
+                height: 200px;
+                border: 1px solid #999;
+                position: fixed;
+                left: calc(50% - 100px);
+                top: calc(50% - 100px);
+            }
         </style>
     </head>
     <body>
+        <div class="spash-container">
+            <ziro-splash></ziro-splash>
+        </div>
+        <!--
         <ziro-screen history>
             <ziro-panel-set>
                 <ziro-panel path="/">
@@ -39,5 +52,6 @@
                 <ziro-nav-item>C</ziro-nav-item>
             </ziro-nav>
         </ziro-screen>
+        -->
     </body>
 </html>
