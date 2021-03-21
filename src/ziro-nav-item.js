@@ -80,7 +80,7 @@ class ZiroNavItem extends ZiroComponent {
 
     render() {
         return html`
-            <button tabindex="${this.selected ? '-1' : '0'}">
+            <button part="button" tabindex="${this.selected ? '-1' : '0'}">
                 <slot></slot>
             </button>
         `
