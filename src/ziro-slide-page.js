@@ -147,6 +147,7 @@ class ZiroSlidePage extends ZiroComponent {
             .container {
                 display: block;
                 position: absolute;
+                z-index: 1;
                 top: 0;
                 left: -100%;
                 box-sizing: border-box;

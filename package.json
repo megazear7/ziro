@@ -1,6 +1,6 @@
 {
   "name": "ziro-components",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "description": "A library of web components",
   "main": "src/ziro-components.js",
   "scripts": {

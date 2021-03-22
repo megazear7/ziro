@@ -89,6 +89,7 @@ class ZiroWizard extends ZiroComponent {
             :host {
                 overflow: hidden;
                 display: block;
+                z-index: 1;
                 box-sizing: border-box;
                 height: 100%;
                 width: 100%;

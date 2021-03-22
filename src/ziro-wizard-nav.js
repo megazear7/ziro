@@ -33,14 +33,13 @@ class ZiroWizardNav extends ZiroComponent {
 
             button[part="previous"] {
                 position: relative;
-                text-align: left;
-                margin-right: var(--zc-space-small);
+                margin-right: 1px;
+                border-radius: var(--zc-border-radius) 0 0 var(--zc-border-radius);
             }
 
             button[part="next"] {
                 position: relative;
-                text-align: right;
-                margin-left: var(--zc-space-small);
+                border-radius: 0 var(--zc-border-radius) var(--zc-border-radius) 0;
             }
         `];
     }
