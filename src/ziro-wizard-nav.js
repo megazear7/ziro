@@ -2,6 +2,7 @@ import html from './services/html.js';
 import css from './services/css.js';
 import buttonStyles from './styles/button.js';
 import ZiroComponent from './ziro-component.js';
+import './ziro-splash.js';
 
 class ZiroWizardNav extends ZiroComponent {
     readyCallback() {
@@ -31,11 +32,13 @@ class ZiroWizardNav extends ZiroComponent {
             }
 
             button[part="previous"] {
+                position: relative;
                 text-align: left;
                 margin-right: var(--zc-space-small);
             }
 
             button[part="next"] {
+                position: relative;
                 text-align: right;
                 margin-left: var(--zc-space-small);
             }
@@ -44,8 +47,8 @@ class ZiroWizardNav extends ZiroComponent {
 
     render() {
         return html`
-            <button part="previous"><slot name="previous"></slot></button>
-            <button part="next"><slot name="next"></slot></button>
+            <button part="previous"><slot name="previous"></slot><ziro-splash></ziro-splash></button>
+            <button part="next"><slot name="next"></slot><ziro-splash></ziro-splash></button>
         `;
     }
 

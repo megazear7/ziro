@@ -287,6 +287,14 @@ ziro-slide-page p {
   line-height: 32px;
 }
 
+.splash button {
+  position: relative;
+}
+
+.splash button:focus {
+  outline: none;
+}
+
 @media (max-width: 600px) {
   h1 {
     font-size: 3rem;

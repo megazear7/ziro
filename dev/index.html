@@ -7,18 +7,6 @@
                 padding: 0;
             }
 
-            ziro-panel:nth-of-type(1) {
-                background: #ffd;
-            }
-
-            ziro-panel:nth-of-type(2) {
-                background: #fdf;
-            }
-
-            ziro-panel:nth-of-type(3) {
-                background: #dff;
-            }
-
             .spash-container {
                 width: 200px;
                 height: 200px;
@@ -27,12 +15,46 @@
                 left: calc(50% - 100px);
                 top: calc(50% - 100px);
             }
+
+            button {
+                position: relative;
+                border: none;
+                background-image: none;
+                background-position: initial;
+                background-size: initial;
+                background-repeat: initial;
+                background-attachment: initial;
+                background-origin: initial;
+                background-clip: initial;
+                background-color: #ddd;
+                color: #111;
+                padding: 10px 20px;
+                border-radius: 3px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: color 300ms ease-in-out, background-color 100ms ease-in-out;
+            }
+
+            button:focus {
+                outline: none;
+            }
+
+            .outer-page {
+                padding: 20px;
+            }
         </style>
     </head>
     <body>
         <div class="spash-container">
             <ziro-splash></ziro-splash>
         </div>
+
+        <!--
+        <div class="outer-page">
+            <button><ziro-splash></ziro-splash>Hello</button>
+        </div>
+        -->
+
         <!--
         <ziro-screen history>
             <ziro-panel-set>
@@ -52,6 +74,40 @@
                 <ziro-nav-item>C</ziro-nav-item>
             </ziro-nav>
         </ziro-screen>
+        -->
+
+        <!--
+        <div class="well">
+            <div class="outer-page">
+              <button onclick="event.target.parentElement.parentElement.querySelector('ziro-wizard').start()">Open Wizard</button>
+            </div>
+            <ziro-wizard>
+              <ziro-panel>
+                  <h3>Panel 1</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                  <ziro-wizard-nav>
+                    <span slot="previous">Close</span>
+                    <span slot="next">Next &rarr;</span>
+                  </ziro-wizard-nav>
+              </ziro-panel>
+              <ziro-panel>
+                  <h3>Panel 2</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                  <ziro-wizard-nav>
+                    <span slot="previous">&larr; Previous</span>
+                    <span slot="next">Next &rarr;</span>
+                  </ziro-wizard-nav>
+              </ziro-panel>
+              <ziro-panel>
+                  <h3>Panel 3</h3>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                  <ziro-wizard-nav>
+                    <span slot="previous">&larr; Previous</span>
+                    <span slot="next">Finish</span>
+                  </ziro-wizard-nav>
+              </ziro-panel>
+            </ziro-wizard>
+        </div>
         -->
     </body>
 </html>

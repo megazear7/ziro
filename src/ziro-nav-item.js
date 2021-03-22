@@ -1,6 +1,7 @@
 import html from './services/html.js';
 import css from './services/css.js';
 import ZiroComponent from './ziro-component.js';
+import './ziro-splash.js';
 
 class ZiroNavItem extends ZiroComponent {
     readyCallback() {
@@ -54,6 +55,7 @@ class ZiroNavItem extends ZiroComponent {
             }
 
             button {
+                position: relative;
                 text-align: center;
                 width: 100%;
                 padding: var(--zc-space-medium);
@@ -84,6 +86,7 @@ class ZiroNavItem extends ZiroComponent {
         return html`
             <button part="button" tabindex="${this.selected ? '-1' : '0'}">
                 <slot></slot>
+                <ziro-splash></ziro-splash>
             </button>
         `
     }

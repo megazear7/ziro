@@ -16,7 +16,6 @@ export default css`
     button:hover, button.focus {
         background-color: var(--zc-primary-color);
         color: var(--zc-primary-text-color);
-        color: white;
         outline: none;
     }
 `;

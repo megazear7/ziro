@@ -6,8 +6,13 @@ class ZiroWizard extends ZiroComponent {
     readyCallback() {
         this.addEventListener('ziro-panel-connected', e => {
             e.stopPropagation();
-            this._firstPanel().active = true
+            this._firstPanel().active = true;
         }, { once: true });
+
+        const firstPanel = this._firstPanel();
+        if (firstPanel && this._activePanelIndex() === undefined) {
+            firstPanel.active = true;
+        }
 
         this.addEventListener('ziro-wizard-previous', e => {
             e.stopPropagation();
