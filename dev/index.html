@@ -42,20 +42,28 @@
             .outer-page {
                 padding: 20px;
             }
+
+            .selector-container {
+                max-width: 800px;
+                padding: 20px;
+                margin: auto;
+            }
         </style>
     </head>
     <body>
+        <div class="selector-container">
+            <ziro-selector placeholder="Enter value"></ziro-selector>
+        </div>
+
+        <!--
         <div class="spash-container">
             <ziro-splash></ziro-splash>
         </div>
 
-        <!--
         <div class="outer-page">
             <button><ziro-splash></ziro-splash>Hello</button>
         </div>
-        -->
 
-        <!--
         <ziro-screen history>
             <ziro-panel-set>
                 <ziro-panel path="/">
@@ -74,9 +82,7 @@
                 <ziro-nav-item>C</ziro-nav-item>
             </ziro-nav>
         </ziro-screen>
-        -->
 
-        <!--
         <div class="well">
             <div class="outer-page">
               <button onclick="event.target.parentElement.parentElement.querySelector('ziro-wizard').start()">Open Wizard</button>
