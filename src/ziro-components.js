@@ -9,4 +9,4 @@ import './ziro-wizard.js';
 import './ziro-wizard-nav.js';
 import './ziro-splash.js';
 import './ziro-button.js';
-import './ziro-selector.js';
+import './ziro-input.js';

@@ -7,8 +7,10 @@ export default css`
         --zc-secondary-color: #264653;
         --zc-secondary-text-color: #fff;
         --zc-background-color: #fff;
+        --zc-background-mild-color: #666;
         --zc-background-text-color: #111;
         --zc-selected-color: #ddd;
+        --zc-background-mild-color: #555;
         --zc-selected-text-color: #111;
 
         --zc-border-radius: 3px;
