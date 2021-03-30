@@ -10,7 +10,7 @@ class ZiroSelector extends ZiroComponent {
         }));
     }
 
-    props() {
+    static get props() {
         return [ 'placeholder' ];
     }
 
@@ -47,7 +47,7 @@ class ZiroSelector extends ZiroComponent {
         `;
     }
 
-    updateProp(attr) {
+    propUpdated(attr) {
         if (attr === 'placeholder') {
             this.shadowRoot.querySelector('input').placeholder = this.placeholder;
         }

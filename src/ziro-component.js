@@ -13,17 +13,9 @@ export default class ZiroComponent extends HTMLElement {
             this.adoptStyles(styles || '');
         }
 
-        this.props().forEach(prop => {
-            const config = typeof prop === 'string' ? { attr: prop, default: '', type: 'string' } : prop;
-
-            if (!config.type) {
-                config.type === 'string';
-            }
-            if (!config.default) {
-                config.default === '';
-            }
-
-            if (config.attr) {
+        this.constructor.props.forEach(prop => {
+            const config = this.constructor.getConfig(prop);
+            if (config) {
                 Object.defineProperty(this, config.attr, {
                     get: () => {
                         if (this.attributes[config.attr] && this.attributes[config.attr].value !== undefined) {
@@ -46,16 +38,8 @@ export default class ZiroComponent extends HTMLElement {
                             }
                         }
                     },
-                    set: val => {
-                        const oldVal = this[config.attr];
-                        if (val) {
-                            this.setAttribute(config.attr, config.type === 'bool' ? '' : val);
-                        } else {
-                            this.removeAttribute(config.attr);
-                        }
-                        if (val !== oldVal) {
-                            this.updateProp(config.attr);
-                        }
+                    set: newValue => {
+                        this.updateProp(config.attr, this[config.attr], newValue, false, true);
                     }
                 });
             }
@@ -65,11 +49,56 @@ export default class ZiroComponent extends HTMLElement {
         this.readyCallback();
     }
 
-    props() {
-        return [];
+    static get observedAttributes() {
+        return this.props
+            .filter(prop => typeof prop === 'string' ? true : !!prop.attr)
+            .map(prop => typeof prop === 'string' ? prop : prop.attr);
     }
 
-    updateProp(attr) {
+    static get props() {
+        return [];
+    }
+    
+    attributeChangedCallback(name, oldValue, newValue) {
+        this.updateProp(name, oldValue, newValue, true, false);
+    }
+
+    propUpdated(attr) {
+    }
+    
+    static getConfig(prop) {
+        if (prop) {
+            const config = typeof prop === 'string' ? { attr: prop, default: '', type: 'string' } : prop;
+
+            if (!config.type) {
+                config.type === 'string';
+            }
+            if (!config.default) {
+                config.default === '';
+            }
+            return config;
+        } else {
+            console.error('No config for ' + prop + ' and class ' + this);
+            return undefined;
+        }
+    }
+
+    updateProp(name, oldValue, newValue, causeCallback, setAttribute) {
+        const prop = this.constructor.props.filter(prop => prop === name || prop.attr === name);
+        const config = prop !== undefined ? this.constructor.getConfig(name) : undefined;
+
+        if (config) {
+            if (setAttribute) {
+                if (newValue) {
+                    this.setAttribute(config.attr, config.type === 'bool' ? '' : newValue);
+                } else {
+                    this.removeAttribute(config.attr);
+                }
+            }
+            if (newValue !== oldValue && causeCallback && this.shadowRoot) {
+                this.propUpdated(config.attr);
+            }
+        }
     }
 
     readyCallback() {
