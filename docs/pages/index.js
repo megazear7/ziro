@@ -4,7 +4,7 @@ import screenCode1 from '../partials/ziro-screen-code-1.js';
 import wizardCode1 from '../partials/ziro-wizard-code-1.js';
 import splashCode1 from '../partials/ziro-splash-code-1.js';
 import inputCode1 from '../partials/ziro-input-code-1.js';
-
+import finderCode1 from '../partials/ziro-finder-code-1.js';
 
 export default context => html`
   <section>
@@ -34,5 +34,10 @@ export default context => html`
     <h3><a href="/ziro-input.html">&lt;ziro-input></a></h3>
     <p>&lt;ziro-input> lets you gather user input.</p>
     ${inputCode1()}
+  </section>
+  <section class="finder">
+    <h3><a href="/ziro-finder.html">&lt;ziro-finder></a></h3>
+    <p>&lt;ziro-finder> lets you search through a list and make selections.</p>
+    ${finderCode1()}
   </section>
 `;

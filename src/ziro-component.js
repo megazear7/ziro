@@ -45,8 +45,16 @@ export default class ZiroComponent extends HTMLElement {
             }
         });
 
+        this.constructor.elements.forEach(element => {
+            this[element.name] = callback => this.findElement(element.selector, callback);
+        });
+
         this.shadowRoot.innerHTML = this.render() || '';
         this.readyCallback();
+    }
+
+    static get elements() {
+        return [ ];
     }
 
     static get observedAttributes() {

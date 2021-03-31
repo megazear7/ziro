@@ -17,13 +17,20 @@ class ZiroItem extends ZiroComponent {
     }
 
     static get props() {
-        return [ 'selected' ];
+        return [ 'selected', 'animateWidth' ];
     }
 
     styles() {
         return [css`
-            div {
+            :host {
                 display: inline-block;
+                overflow: hidden;
+                transition: height var(--zc-transition-speed), width var(--zc-transition-speed);
+                box-sizing: border-box;
+            }
+
+            div {
+                text-align: center;
                 background-color: var(--zc-background-color);
                 color: var(--zc-background-text-color);
                 padding: var(--zc-space-small);
@@ -32,6 +39,9 @@ class ZiroItem extends ZiroComponent {
                 border: var(--zc-light-border);
                 cursor: pointer;
                 transition: background-color var(--zc-transition-speed);
+                text-overflow: clip;
+                white-space: nowrap;
+                overflow: hidden;
             }
 
             div:hover, div:focus {
@@ -61,6 +71,34 @@ class ZiroItem extends ZiroComponent {
             this.findElement('div', div => {
                 div.classList.toggle('selected', !!this.selected);
             });
+        }
+    }
+
+    show() {
+        const savedTransition = this.style.transition;
+        this.style.transition = 'none';
+        this.style.height = 'auto';
+        this.style.width = 'auto';
+        this.savedHeight = this.offsetHeight;
+        this.savedWidth = this.offsetWidth;
+        this.style.transition = savedTransition;
+
+        this.style.height = '0';
+        if (this.animateWidth) {
+            this.style.width = '0';
+        }
+        setTimeout(() => {
+            this.style.height = this.savedHeight + 'px';
+            if (this.animateWidth) {
+                this.style.width = (this.savedWidth + 1) + 'px';
+            }
+        }, 0);
+    }
+
+    hide() {
+        this.style.height = '0';
+        if (this.animateWidth) {
+            this.style.width = '0';
         }
     }
 }
