@@ -1,6 +1,5 @@
 import html from './services/html.js';
 import css from './services/css.js';
-import buttonStyles from './styles/button.js';
 import ZiroComponent from './ziro-component.js';
 
 class ZiroInput extends ZiroComponent {
@@ -32,7 +31,7 @@ class ZiroInput extends ZiroComponent {
     }
 
     styles() {
-        return [buttonStyles, css`
+        return [css`
             :host {
                 display: block;
                 text-align: center;

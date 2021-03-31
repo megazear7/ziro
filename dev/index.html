@@ -44,7 +44,7 @@
             }
 
             .selector-container {
-                max-width: 800px;
+                max-width: 500px;
                 padding: 20px;
                 margin: auto;
             }
@@ -52,7 +52,16 @@
     </head>
     <body>
         <div class="selector-container">
-            <ziro-input placeholder="Enter email address" hint="<script>console.log('test')</script>Email address" value=""></ziro-input>
+            <ziro-finder placeholder="Enter email address" hint="Email address" query="">
+                <ziro-item>Lord of the Rings</ziro-item>
+                <ziro-item>Interstellar</ziro-item>
+                <ziro-item>Avengers: End Game</ziro-item>
+                <ziro-item>Alien</ziro-item>
+                <ziro-item>Gone with the Wind</ziro-item>
+                <ziro-item>The Hobbit</ziro-item>
+                <ziro-item>Harry Potter</ziro-item>
+                <ziro-item>Moon</ziro-item>
+            </ziro-finder>
         </div>
 
         <!--

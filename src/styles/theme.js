@@ -14,7 +14,11 @@ export default css`
         --zc-selected-text-color: #111;
 
         --zc-border-radius: 3px;
+        --zc-light-border: 1px solid var(--zc-background-mild-color);
+        --zc-primary-border: 1px solid var(--zc-primary-color);
 
+        --zc-space-tiny: 6px;
+        --zc-space-mini: 8px;
         --zc-space-small: 10px;
         --zc-space-medium: 20px;
         --zc-space-large: 30px;

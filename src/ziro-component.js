@@ -101,6 +101,16 @@ export default class ZiroComponent extends HTMLElement {
         }
     }
 
+    findElement(selector, callback) {
+        if (this.shadowRoot) {
+            const element = this.shadowRoot.querySelector(selector);
+
+            if (element) {
+                callback(element);
+            }
+        }
+    }
+
     readyCallback() {
     }
 

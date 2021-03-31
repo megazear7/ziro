@@ -10,3 +10,5 @@ import './ziro-wizard-nav.js';
 import './ziro-splash.js';
 import './ziro-button.js';
 import './ziro-input.js';
+import './ziro-finder.js';
+import './ziro-item.js';
