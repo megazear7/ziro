@@ -13,14 +13,16 @@ class ZiroInput extends ZiroComponent {
             inputElement.addEventListener('input', () => {
                 this.value = inputElement.value;
                 this.dispatchEvent(new CustomEvent('ziro-selector-input', {
-                    bubbles: true
+                    bubbles: true,
+                    detail: this.value
                 }));
             });
 
             inputElement.addEventListener('change', () => {
                 this.value = inputElement.value;
                 this.dispatchEvent(new CustomEvent('ziro-selector-change', {
-                    bubbles: true
+                    bubbles: true,
+                    detail: this.value
                 }));
             });
         }

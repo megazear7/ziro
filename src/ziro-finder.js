@@ -5,6 +5,10 @@ import './ziro-input.js';
 
 class ZiroFinder extends ZiroComponent {
     readyCallback() {
+        if (this.multi) {
+            this.value = this.value || [];
+        }
+
         this.dispatchEvent(new CustomEvent('ziro-finder-connected', {
             bubbles: true
         }));
@@ -27,6 +31,29 @@ class ZiroFinder extends ZiroComponent {
                     }
                 });
             }
+
+            const clickedItem = e.target;
+            console.log(e.target, e.target.value);
+            if (clickedItem.selected) {
+                if (this.multi) {
+                    this.value = this.value || [];
+                    this.value.push(clickedItem.value);
+                } else {
+                    this.value = clickedItem.value;
+                }
+            } else {
+                if (this.multi) {
+                    this.value = this.value || [];
+                    this.value = this.value.filter(val => val !== clickedItem.value);
+                } else {
+                    this.value = undefined;
+                }
+            }
+
+            this.dispatchEvent(new CustomEvent('ziro-finder-changed', {
+                bubbles: true,
+                detail: this.value
+            }));
         });
     }
 
@@ -35,6 +62,7 @@ class ZiroFinder extends ZiroComponent {
             'placeholder',
             'query',
             'hint',
+            'value',
             { attr: 'max', default: 3 },
             { attr: 'multi', type: 'bool' }
         ];

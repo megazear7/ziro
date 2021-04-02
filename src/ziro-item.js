@@ -4,6 +4,10 @@ import ZiroComponent from './ziro-component.js';
 
 class ZiroItem extends ZiroComponent {
     readyCallback() {
+        if (!this.value) {
+            this.value = this.innerText;
+        }
+
         this.dispatchEvent(new CustomEvent('ziro-item-connected', {
             bubbles: true
         }));
@@ -17,7 +21,7 @@ class ZiroItem extends ZiroComponent {
     }
 
     static get props() {
-        return [ 'selected', 'animateWidth' ];
+        return [ 'selected', 'animateWidth', 'value' ];
     }
 
     styles() {
