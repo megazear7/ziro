@@ -1,10 +1,11 @@
 import html from './services/html.js';
 import css from './services/css.js';
+import deepEqual from './services/deep-equal.js';
 import ZiroComponent from './ziro-component.js';
 
 class ZiroItem extends ZiroComponent {
     readyCallback() {
-        if (!this.value) {
+        if (!this.value || deepEqual(this.value, {})) {
             this.value = this.innerText;
         }
 

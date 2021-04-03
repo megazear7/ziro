@@ -103,6 +103,12 @@ export default class ZiroComponent extends HTMLElement {
         const prop = this.constructor.props.filter(prop => prop === name || prop.attr === name)[0];
         const config = prop !== undefined ? this.constructor.getConfig(prop) : undefined;
 
+        if (config.type === 'json' && !setAttribute) {
+            try {
+                newValue = JSON.parse(newValue);
+            } catch {}
+        }
+
         if (config) {
             if (setAttribute) {
                 if (newValue) {

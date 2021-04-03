@@ -1,5 +1,6 @@
 import html from './services/html.js';
 import css from './services/css.js';
+import deepEqual from './services/deep-equal.js';
 import ZiroComponent from './ziro-component.js';
 import './ziro-input.js';
 
@@ -149,10 +150,6 @@ class ZiroFinder extends ZiroComponent {
             }
         });
     }
-}
-
-function deepEqual(obj1, obj2) {
-    return JSON.stringify(obj1) === JSON.stringify(obj2);
 }
 
 window.customElements.define('ziro-finder', ZiroFinder);
