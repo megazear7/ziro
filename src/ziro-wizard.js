@@ -159,17 +159,17 @@ class ZiroWizard extends ZiroComponent {
     }
 
     finish() {
-        this._close();
-        this.dispatchEvent(new CustomEvent('ziro-wizard-finished-successful', {
+        this.dispatchEvent(new CustomEvent('ziro-wizard-successful', {
             bubbles: true
         }));
+        this._close();
     }
 
     endEarly() {
-        this._close();
-        this.dispatchEvent(new CustomEvent('ziro-wizard-finished-unsuccessful', {
+        this.dispatchEvent(new CustomEvent('ziro-wizard-unsuccessful', {
             bubbles: true
         }));
+        this._close();
     }
 
     slideTo(index) {

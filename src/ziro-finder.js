@@ -33,7 +33,6 @@ class ZiroFinder extends ZiroComponent {
             }
 
             const clickedItem = e.target;
-            console.log(e.target, e.target.value);
             if (clickedItem.selected) {
                 if (this.multi) {
                     this.value = this.value || [];
