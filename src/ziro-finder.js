@@ -16,6 +16,11 @@ class ZiroFinder extends ZiroComponent {
         this.inputElement(elem => {
             elem.addEventListener('ziro-selector-input', () => {
                 this.query = elem.value;
+
+                this.dispatchEvent(new CustomEvent('ziro-finder-input', {
+                    bubbles: true,
+                    detail: this.query
+                }));
             });
         });
 
@@ -93,6 +98,15 @@ class ZiroFinder extends ZiroComponent {
 
     propUpdated(attr) {
         if (attr === 'query') {
+            this.updateItems();
+            this.inputElement(elem => elem.value = this.query);
+        } else if (attr === 'value') {
+            this.querySelectorAll('ziro-item').forEach(item => item.selected = false);
+        } else if (attr === 'placeholder') {
+            this.inputElement(elem => elem.placeholder = this.placeholder);
+        } else if (attr === 'hint') {
+            this.inputElement(elem => elem.hint = this.hint);
+        } else if (attr === 'max') {
             this.updateItems();
         }
     }
