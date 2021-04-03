@@ -72,7 +72,7 @@ class ZiroFinder extends ZiroComponent {
             'placeholder',
             'query',
             'hint',
-            'value',
+            { attr: 'value', type: 'json' },
             { attr: 'minQueryLength', default: 0 },
             { attr: 'max', default: 3 },
             { attr: 'multi', type: 'bool' }
@@ -116,7 +116,7 @@ class ZiroFinder extends ZiroComponent {
                 if (this.multi) {
                     item.selected = this.value.includes(item.value);
                 } else {
-                    item.selected = this.value === item.value;
+                    item.selected = deepEqual(this.value, item.value);
                 }
             });
         } else if (attr === 'placeholder') {
@@ -149,6 +149,10 @@ class ZiroFinder extends ZiroComponent {
             }
         });
     }
+}
+
+function deepEqual(obj1, obj2) {
+    return JSON.stringify(obj1) === JSON.stringify(obj2);
 }
 
 window.customElements.define('ziro-finder', ZiroFinder);

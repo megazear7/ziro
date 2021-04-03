@@ -21,7 +21,11 @@ class ZiroItem extends ZiroComponent {
     }
 
     static get props() {
-        return [ 'selected', 'animateWidth', 'value' ];
+        return [
+            'selected',
+            'animateWidth',
+            { attr: 'value', type: 'json' }
+        ];
     }
 
     styles() {

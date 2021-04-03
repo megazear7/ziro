@@ -32,7 +32,9 @@ export default class ZiroComponent extends HTMLElement {
                             }
                         } else {
                             if (config.type === 'bool') {
-                                return false;
+                               return false;
+                            } else if (config.type === 'json') {
+                                return config.default || {};
                             } else {
                                 return config.default;
                             }
@@ -82,7 +84,13 @@ export default class ZiroComponent extends HTMLElement {
                 config.type === 'string';
             }
             if (!config.default) {
-                config.default === '';
+                if (config.type === 'bool') {
+                    config.default === false;
+                } else if (config.type === 'json') {
+                    config.default = {};
+                } else {
+                    config.default === '';
+                }
             }
             return config;
         } else {
@@ -92,13 +100,19 @@ export default class ZiroComponent extends HTMLElement {
     }
 
     updateProp(name, oldValue, newValue, causeCallback, setAttribute) {
-        const prop = this.constructor.props.filter(prop => prop === name || prop.attr === name);
-        const config = prop !== undefined ? this.constructor.getConfig(name) : undefined;
+        const prop = this.constructor.props.filter(prop => prop === name || prop.attr === name)[0];
+        const config = prop !== undefined ? this.constructor.getConfig(prop) : undefined;
 
         if (config) {
             if (setAttribute) {
                 if (newValue) {
-                    this.setAttribute(config.attr, config.type === 'bool' ? '' : newValue);
+                    if (config.type === 'bool') {
+                        this.setAttribute(config.attr, '');
+                    } else if (config.type === 'json') {
+                        this.setAttribute(config.attr, JSON.stringify(newValue));
+                    } else {
+                        this.setAttribute(config.attr, newValue);
+                    }
                 } else {
                     this.removeAttribute(config.attr);
                 }
