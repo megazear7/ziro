@@ -60,7 +60,7 @@ class ZiroWizard extends ZiroComponent {
 
     get active() {
         if (this.attributes.active && this.attributes.active.value !== undefined) {
-            return val === '' || !! val && val !== 'false';
+            return this.attributes.active === '' || !! this.attributes.active && this.attributes.active !== 'false';
         } else {
             return false;
         }
@@ -73,6 +73,9 @@ class ZiroWizard extends ZiroComponent {
                 this.shadowRoot.innerHTML = this._slot();
                 this.style.left = '0';
             }
+            this.dispatchEvent(new CustomEvent('ziro-wizard-start', {
+                bubbles: true
+            }));
         } else {
             this.removeAttribute('active');
             if (this.shadowRoot) {

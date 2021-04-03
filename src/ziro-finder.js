@@ -24,8 +24,14 @@ class ZiroFinder extends ZiroComponent {
             });
         });
 
+        let connectedItems = 0;
         this.addEventListener('ziro-item-connected', e => {
             e.target.hide();
+            connectedItems += 1;
+
+            if (connectedItems === this.querySelectorAll('ziro-item').length) {
+                this.updateItems();
+            }
         });
 
         this.addEventListener('ziro-item-click', e => {
@@ -67,6 +73,7 @@ class ZiroFinder extends ZiroComponent {
             'query',
             'hint',
             'value',
+            { attr: 'minQueryLength', default: 0 },
             { attr: 'max', default: 3 },
             { attr: 'multi', type: 'bool' }
         ];
@@ -78,6 +85,10 @@ class ZiroFinder extends ZiroComponent {
 
     styles() {
         return [css`
+            :host {
+                display:block;
+            }
+
             ::slotted(ziro-item) {
                 display: block;
                 width: 100%;
@@ -101,12 +112,20 @@ class ZiroFinder extends ZiroComponent {
             this.updateItems();
             this.inputElement(elem => elem.value = this.query);
         } else if (attr === 'value') {
-            this.querySelectorAll('ziro-item').forEach(item => item.selected = false);
+            this.querySelectorAll('ziro-item').forEach(item => {
+                if (this.multi) {
+                    item.selected = this.value.includes(item.value);
+                } else {
+                    item.selected = this.value === item.value;
+                }
+            });
         } else if (attr === 'placeholder') {
             this.inputElement(elem => elem.placeholder = this.placeholder);
         } else if (attr === 'hint') {
             this.inputElement(elem => elem.hint = this.hint);
         } else if (attr === 'max') {
+            this.updateItems();
+        } else if (attr === 'minQueryLength') {
             this.updateItems();
         }
     }
@@ -114,7 +133,7 @@ class ZiroFinder extends ZiroComponent {
     updateItems() {
         let shownItems = 0;
         this.querySelectorAll('ziro-item').forEach(item => {
-            if (this.query.length > 2 && shownItems < this.max) {
+            if (this.query.length >= this.minQueryLength && shownItems < this.max) {
                 if (item.innerText.toLowerCase().includes(this.query.toLowerCase())) {
                     shownItems += 1;
                     item.show();
