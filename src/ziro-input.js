@@ -3,13 +3,23 @@ import css from './services/css.js';
 import ZiroComponent from './ziro-component.js';
 
 class ZiroInput extends ZiroComponent {
+    static formAssociated = true;
+
     readyCallback() {
+        if (!this.hasAttribute('tabindex')) {
+            this.tabIndex = 0;
+        }
+
         this.dispatchEvent(new CustomEvent('ziro-selector-connected', {
             bubbles: true
         }));
 
         const inputElement = this.inputElement;
         if (inputElement) {
+            this.addEventListener('focus', () => {
+                inputElement.focus();
+            });
+
             inputElement.addEventListener('input', () => {
                 this.value = inputElement.value;
                 this.dispatchEvent(new CustomEvent('ziro-selector-input', {
