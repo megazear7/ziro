@@ -3,15 +3,6 @@ import theme from './styles/theme.js';
 export default class ZiroComponent extends HTMLElement {
     connectedCallback() {
         this.attachShadow({mode: 'open'});
-        this.adoptStyles(theme);
-        const styles = this.styles();
-        if (Array.isArray(styles)) {
-            styles.forEach(style => {
-                this.adoptStyles(style || '');
-            });
-        } else {
-            this.adoptStyles(styles || '');
-        }
 
         this.constructor.props.forEach(prop => {
             const config = this.constructor.getConfig(prop);
@@ -27,6 +18,10 @@ export default class ZiroComponent extends HTMLElement {
                                 } catch {
                                     return {};
                                 }
+                            } else if (config.type === 'number') {
+                                return parseFloat(this.attributes[config.attr].value);
+                            } else if (config.type === 'int') {
+                                return parseInt(this.attributes[config.attr].value);
                             } else {
                                 return this.attributes[config.attr].value;
                             }
@@ -50,6 +45,16 @@ export default class ZiroComponent extends HTMLElement {
         this.constructor.elements.forEach(element => {
             this[element.name] = callback => this.findElement(element.selector, callback);
         });
+
+        this.adoptStyles(theme);
+        const styles = this.styles();
+        if (Array.isArray(styles)) {
+            styles.forEach(style => {
+                this.adoptStyles(style || '');
+            });
+        } else {
+            this.adoptStyles(styles || '');
+        }
 
         this.shadowRoot.innerHTML = this.render() || '';
         this.readyCallback();

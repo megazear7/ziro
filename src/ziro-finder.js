@@ -10,6 +10,9 @@ class ZiroFinder extends ZiroComponent {
             this.value = this.value || [];
         }
 
+        this.domObserver = new MutationObserver(this.mutationObserver.bind(this));
+        this.domObserver.observe(this, { attributes: false, childList: true, subtree: true });
+
         this.dispatchEvent(new CustomEvent('ziro-finder-connected', {
             bubbles: true
         }));
@@ -75,7 +78,7 @@ class ZiroFinder extends ZiroComponent {
             'hint',
             { attr: 'value', type: 'json' },
             { attr: 'minQueryLength', default: 0 },
-            { attr: 'max', default: 3 },
+            { attr: 'max', default: 3, type: 'number' },
             { attr: 'multi', type: 'bool' }
         ];
     }
@@ -134,7 +137,7 @@ class ZiroFinder extends ZiroComponent {
     updateItems() {
         let shownItems = 0;
         this.querySelectorAll('ziro-item').forEach(item => {
-            if (this.query.length >= this.minQueryLength && shownItems < this.max) {
+            if (this.query.length >= this.minQueryLength && (shownItems < this.max || this.max === -1)) {
                 if (item.innerText.toLowerCase().includes(this.query.toLowerCase())) {
                     shownItems += 1;
                     item.show();
@@ -149,6 +152,18 @@ class ZiroFinder extends ZiroComponent {
                 }
             }
         });
+    }
+
+    mutationObserver(mutationsList) {
+        mutationsList.forEach(mutation => {
+            if (mutation.type === 'childList') {
+                this.updateItems();
+            }
+        });
+    };
+
+    disconnectedCallback() {
+        this.domObserver.disconnect();
     }
 }
 

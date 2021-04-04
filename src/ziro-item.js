@@ -25,6 +25,7 @@ class ZiroItem extends ZiroComponent {
         return [
             'selected',
             'animateWidth',
+            { attr: 'speed', type: 'number', default: '300' },
             { attr: 'value', type: 'json' }
         ];
     }
@@ -34,7 +35,7 @@ class ZiroItem extends ZiroComponent {
             :host {
                 display: inline-block;
                 overflow: hidden;
-                transition: height var(--zc-transition-speed), width var(--zc-transition-speed);
+                transition: height ${this.speed}ms, width ${this.speed}ms;
                 box-sizing: border-box;
             }
 
@@ -101,6 +102,10 @@ class ZiroItem extends ZiroComponent {
             if (this.animateWidth) {
                 this.style.width = (this.savedWidth + 1) + 'px';
             }
+            setTimeout(() => {
+                this.style.width = 'auto';
+                this.style.height = 'auto';
+            }, this.speed)
         }, 0);
     }
 
