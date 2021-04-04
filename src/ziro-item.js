@@ -4,7 +4,13 @@ import deepEqual from './services/deep-equal.js';
 import ZiroComponent from './ziro-component.js';
 
 class ZiroItem extends ZiroComponent {
+    static formAssociated = true;
+
     readyCallback() {
+        if (!this.hasAttribute('tabindex')) {
+            this.tabIndex = 0;
+        }
+        this.savedTabIndex = this.tabIndex
         if (!this.value || deepEqual(this.value, {})) {
             this.value = this.innerText;
         }
@@ -13,12 +19,13 @@ class ZiroItem extends ZiroComponent {
             bubbles: true
         }));
 
-        this.addEventListener('click', () => {
-            this.selected = !this.selected;
-            this.dispatchEvent(new CustomEvent('ziro-item-click', {
-                bubbles: true
-            }));
-        });
+        this.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.which === 13 || e.keyCode === 13) {
+                this.select();
+            }
+        }, { signal: this.signal });
+
+        this.addEventListener('click', () => this.select(), { signal: this.signal });
     }
 
     static get props() {
@@ -37,6 +44,7 @@ class ZiroItem extends ZiroComponent {
                 overflow: hidden;
                 transition: height ${this.speed}ms, width ${this.speed}ms;
                 box-sizing: border-box;
+                margin: var(--zc-space-mini);
             }
 
             div {
@@ -44,7 +52,6 @@ class ZiroItem extends ZiroComponent {
                 background-color: var(--zc-background-color);
                 color: var(--zc-background-text-color);
                 padding: var(--zc-space-small);
-                margin: var(--zc-space-mini);
                 border-radius: var(--zc-border-radius);
                 border: var(--zc-light-border);
                 cursor: pointer;
@@ -72,7 +79,7 @@ class ZiroItem extends ZiroComponent {
 
     render() {
         return html`
-            <div class="${this.selected ? 'selected' : ''}" tabindex="0"><slot></div>
+            <div class="${this.selected ? 'selected' : ''}"><slot></div>
         `;
     }
 
@@ -84,7 +91,15 @@ class ZiroItem extends ZiroComponent {
         }
     }
 
+    select() {
+        this.selected = !this.selected;
+        this.dispatchEvent(new CustomEvent('ziro-item-click', {
+            bubbles: true
+        }));
+    }
+
     show() {
+        this.tabIndex = this.savedTabIndex;
         const savedTransition = this.style.transition;
         this.style.transition = 'none';
         this.style.height = 'auto';
@@ -114,6 +129,8 @@ class ZiroItem extends ZiroComponent {
         if (this.animateWidth) {
             this.style.width = '0';
         }
+        this.savedTabIndex = this.tabIndex;
+        this.tabIndex = '-1';
     }
 }
 

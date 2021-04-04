@@ -15,7 +15,7 @@ class ZiroSlidePage extends ZiroComponent {
             if (this.active) {
                 this.active = false;
             }
-        });
+        }, { signal: this.signal });
 
         if (this.path) {
             const pathMatched = pathMatches(this.path);
@@ -32,7 +32,7 @@ class ZiroSlidePage extends ZiroComponent {
                 if (this.active !== pathMatched) {
                     this.active = pathMatched;
                 }
-            });
+            }, { signal: this.signal });
         }
     }
 

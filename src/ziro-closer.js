@@ -9,7 +9,7 @@ class ZiroCloser extends ZiroComponent {
             bubbles: true
         }));
 
-        this.shadowRoot.querySelector('button').addEventListener('click', () => this._dispatchClosed());
+        this.shadowRoot.querySelector('button').addEventListener('click', () => this._dispatchClosed(), { signal: this.signal });
     }
 
     styles() {

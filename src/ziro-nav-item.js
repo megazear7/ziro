@@ -7,7 +7,7 @@ class ZiroNavItem extends ZiroComponent {
     readyCallback() {
         this.addEventListener('click', () => {
             this._dispatchNavItemClicked();
-        });
+        }, { signal: this.signal });
 
         this.dispatchEvent(new CustomEvent('ziro-nav-item-connected', {
             bubbles: true

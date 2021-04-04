@@ -4,6 +4,10 @@ import ZiroComponent from './ziro-component.js';
 
 class ZiroPanel extends ZiroComponent {
     readyCallback() {
+        if (!this.hasAttribute('tabindex')) {
+            this.tabIndex = -1;
+        }
+
         this.dispatchEvent(new CustomEvent('ziro-panel-connected', {
             bubbles: true
         }));

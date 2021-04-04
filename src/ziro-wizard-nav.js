@@ -10,8 +10,13 @@ class ZiroWizardNav extends ZiroComponent {
             bubbles: true
         }));
 
-        this.shadowRoot.querySelector('button[part="previous"]').addEventListener('click', () => this._dispatchPrevious());
-        this.shadowRoot.querySelector('button[part="next"]').addEventListener('click', () => this._dispatchNext());
+        this.shadowRoot.querySelector('button[part="previous"]').addEventListener('click', () => {
+            this._dispatchPrevious()
+        }, { signal: this.signal });
+
+        this.shadowRoot.querySelector('button[part="next"]').addEventListener('click', () => {
+            this._dispatchNext()
+        }, { signal: this.signal });
     }
 
     styles() {

@@ -25,7 +25,7 @@ class ZiroFinder extends ZiroComponent {
                     bubbles: true,
                     detail: this.query
                 }));
-            });
+            }, { signal: this.signal });
         });
 
         let connectedItems = 0;
@@ -36,7 +36,7 @@ class ZiroFinder extends ZiroComponent {
             if (connectedItems === this.querySelectorAll('ziro-item').length) {
                 this.updateItems();
             }
-        });
+        }, { signal: this.signal });
 
         this.addEventListener('ziro-item-click', e => {
             if (! this.multi) {
@@ -68,7 +68,7 @@ class ZiroFinder extends ZiroComponent {
                 bubbles: true,
                 detail: this.value
             }));
-        });
+        }, { signal: this.signal });
     }
 
     static get props() {

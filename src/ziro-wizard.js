@@ -7,7 +7,7 @@ class ZiroWizard extends ZiroComponent {
         this.addEventListener('ziro-panel-connected', e => {
             e.stopPropagation();
             this._firstPanel().active = true;
-        }, { once: true });
+        }, { signal: this.signal, once: true });
 
         const firstPanel = this._firstPanel();
         if (firstPanel && this._activePanelIndex() === undefined) {
@@ -17,27 +17,27 @@ class ZiroWizard extends ZiroComponent {
         this.addEventListener('ziro-wizard-previous', e => {
             e.stopPropagation();
             this.previous()
-        });
+        }, { signal: this.signal });
 
         this.addEventListener('ziro-wizard-next', e => {
             e.stopPropagation();
             this.next()
-        });
+        }, { signal: this.signal });
 
         this.addEventListener('ziro-wizard-finish', e => {
             e.stopPropagation();
             this.finish()
-        });
+        }, { signal: this.signal });
 
         this.addEventListener('ziro-wizard-end-early', e => {
             e.stopPropagation();
             this.endEarly()
-        });
+        }, { signal: this.signal });
 
         this.addEventListener('ziro-closed', e => {
             e.stopPropagation();
             this.endEarly()
-        });
+        }, { signal: this.signal });
 
         this.index = 0;
     }

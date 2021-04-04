@@ -5,8 +5,13 @@ import ZiroComponent from './ziro-component.js';
 
 class ZiroScreen extends ZiroComponent {
     readyCallback() {
-        this.addEventListener('ziro-nav-item-selected', e => this._navItemClicked(e.target));
-        this.addEventListener('ziro-panel-changed', e => this._panelChanged(e.target));
+        this.addEventListener('ziro-nav-item-selected', e => {
+            this._navItemClicked(e.target)
+        }, { signal: this.signal });
+        
+        this.addEventListener('ziro-panel-changed', e => {
+            this._panelChanged(e.target)
+        }, { signal: this.signal });
     
         this.querySelectorAll('ziro-nav ziro-nav-item').forEach((navItem, index) => {
             if (typeof navItem.attributes.selected !== 'undefined') {
@@ -15,16 +20,20 @@ class ZiroScreen extends ZiroComponent {
         });
 
         this._forEachPanel(panel => this._initPanel(panel));
-        this.addEventListener('ziro-panel-connected', e => this._initPanel(e.target));
+        this.addEventListener('ziro-panel-connected', e => {
+            this._initPanel(e.target)
+        }, { signal: this.signal });
 
         this._forEachNavItem(panel => this._initPanel(panel));
-        this.addEventListener('ziro-nav-item-connected', () => this._initNavItem());
+        this.addEventListener('ziro-nav-item-connected', () => {
+            this._initNavItem()
+        }, { signal: this.signal });
 
         if (this.history) {
             window.addEventListener('popstate', event => {
                 const lastIndex = event.state && typeof event.state.index === 'number' ? event.state.index : this.originalIndex || 0;
                 this.slideTo(lastIndex);
-            });
+            }, { signal: this.signal });
         }
     }
 

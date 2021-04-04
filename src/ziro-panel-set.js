@@ -70,10 +70,12 @@ class ZiroPanelSet extends ZiroComponent {
         }
 
         panels[index].active = true;
+        
         this.style.setProperty('--zc-panel-index', this.index);
         if (oldIndex !== this.index) {
             setTimeout(() => {
                 panels[oldIndex].active = false;
+                panels[index].focus();
             }, this.speed());
         }
     }

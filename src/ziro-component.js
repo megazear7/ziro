@@ -57,7 +57,15 @@ export default class ZiroComponent extends HTMLElement {
         }
 
         this.shadowRoot.innerHTML = this.render() || '';
+        this.eventController = new AbortController();
+        this.signal = this.eventController.signal;
+
+        this.listeners = [];
         this.readyCallback();
+    }
+
+    disconnectedCallback() {
+        this.eventController.abort();
     }
 
     static get elements() {

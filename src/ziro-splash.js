@@ -12,7 +12,7 @@ class ZiroSpash extends ZiroComponent {
         this._opacity = 1;
 
         this._animation();
-        this.addEventListener('click', e => this.splash(e));
+        this.addEventListener('click', e => this.splash(e), { signal: this.signal });
     }
 
     get opacity() {

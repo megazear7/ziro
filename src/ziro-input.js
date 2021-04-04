@@ -18,7 +18,7 @@ class ZiroInput extends ZiroComponent {
         if (inputElement) {
             this.addEventListener('focus', () => {
                 inputElement.focus();
-            });
+            }, { signal: this.signal });
 
             inputElement.addEventListener('input', () => {
                 this.value = inputElement.value;
@@ -26,7 +26,7 @@ class ZiroInput extends ZiroComponent {
                     bubbles: true,
                     detail: this.value
                 }));
-            });
+            }, { signal: this.signal });
 
             inputElement.addEventListener('change', () => {
                 this.value = inputElement.value;
@@ -34,7 +34,7 @@ class ZiroInput extends ZiroComponent {
                     bubbles: true,
                     detail: this.value
                 }));
-            });
+            }, { signal: this.signal });
         }
     }
 
