@@ -6,6 +6,9 @@ import ZiroComponent from './ziro-component.js';
 
 class ZiroSlidePage extends ZiroComponent {
     readyCallback() {
+        this._opening = false;
+        this._closing = false;
+
         this.dispatchEvent(new CustomEvent('ziro-slide-page-connected', {
             bubbles: true
         }));
@@ -27,13 +30,23 @@ class ZiroSlidePage extends ZiroComponent {
 
         if (this.history && this.path) {
             window.addEventListener('popstate', () => {
+                console.log('popstate');
                 const pathMatched = pathMatches(this.path);
 
+                console.log(this.path, window.location.pathname);
                 if (this.active !== pathMatched) {
-                    this.active = pathMatched;
+                    this._updateActive(pathMatched, false);
                 }
             }, { signal: this.signal });
         }
+    }
+
+    static get props() {
+        return [
+            'path',
+            { attr: 'history', type: 'bool' },
+            { attr: 'speed', default: 300, type: 'number' }
+        ];
     }
 
     get active() {
@@ -41,89 +54,7 @@ class ZiroSlidePage extends ZiroComponent {
     }
 
     set active(val) {
-        const oldVal = this.active;
-
-        if (val !== oldVal) {
-            if (val && !this.hasAttribute('active')) {
-                this.setAttribute('active', '');
-            } else if (!val && this.hasAttribute('active')) {
-                this.removeAttribute('active');
-            }
-
-            if (!!oldVal !== !!val) {
-                if (this.active) {
-                    this._dispatchOpened();
-                    if (this.history) {
-                        history.pushState({ }, document.title || '', this.path);
-                    }
-                } else {
-                    this._dispatchClosed();
-                    if (this.history) {
-                        window.history.back();
-                    }
-                }
-            }
-
-            const container = this._container();
-            if (container) {
-                container.classList.toggle('active', this.active);
-            }
-
-            const slotContainer = this._slotContainer();
-            if (slotContainer) {
-                if (this.active && ! this._contentLoaded()) {
-                    slotContainer.innerHTML = this._slot();
-                } else if (!this.active && this._contentLoaded()) {
-                    setTimeout(() => {
-                        slotContainer.innerHTML = '';
-                    }, this.speed);
-                }
-            }
-        }
-    }
-
-    get path() {
-        if (this.attributes.path && this.attributes.path.value !== undefined) {
-            return this.attributes.path.value;
-        } else {
-            return undefined;
-        }
-    }
-
-    set path(val) {
-        if (val) {
-            this.setAttribute('path', '');
-        } else {
-            this.removeAttribute('path');
-        }
-    }
-
-    get history() {
-        return this.attributes.history && this.attributes.history.value !== undefined;
-    }
-
-    set history(val) {
-        if (val) {
-            this.setAttribute('history', '');
-        } else {
-            this.removeAttribute('history');
-        }
-    }
-
-    get speed() {
-        if (this.attributes.speed && this.attributes.speed.value !== undefined) {
-            return this.attributes.speed.value;
-        } else {
-            return 300;
-        }
-    }
-
-    set speed(val) {
-        if (val) {
-            this.setAttribute('speed', '');
-        } else {
-            this.removeAttribute('speed');
-        }
+        this._updateActive(val, true);
     }
 
     open() {
@@ -188,6 +119,58 @@ class ZiroSlidePage extends ZiroComponent {
                 </div>
             </div>
         `;
+    }
+
+    _updateActive(val, doHistory) {
+        const oldVal = this.active;
+
+        if (val !== oldVal && !this._opening && !this._closing) {
+            if (val && !this.hasAttribute('active')) {
+                this.setAttribute('active', '');
+            } else if (!val && this.hasAttribute('active')) {
+                this.removeAttribute('active');
+            }
+
+            if (!!oldVal !== !!val && doHistory) {
+                if (this.active) {
+                    if (this.history) {
+                        console.log('history.pushState');
+                        history.pushState({ }, document.title || '', this.path);
+                    }
+                } else {
+                    if (this.history) {
+                        console.log('history.back');
+                        window.history.back();
+                    }
+                }
+            }
+
+            const container = this._container();
+            if (container) {
+                container.classList.toggle('active', this.active);
+            }
+
+            const slotContainer = this._slotContainer();
+            if (slotContainer) {
+                if (this.active && ! this._contentLoaded()) {
+                    slotContainer.innerHTML = this._slot();
+                    this._opening = true;
+                    this._closing = false;
+                    setTimeout(() => {
+                        this._opening = false;
+                        this._dispatchOpened();
+                    }, this.speed);
+                } else if (!this.active && this._contentLoaded()) {
+                    this._opening = false;
+                    this._closing = true;
+                    setTimeout(() => {
+                        slotContainer.innerHTML = '';
+                        this._closing = false;
+                        this._dispatchClosed();
+                    }, this.speed);
+                }
+            }
+        }
     }
 
     _contentLoaded() {
