@@ -1,4 +1,4 @@
-import theme from './styles/theme.js';
+import globalStyles from './styles/globals.js';
 
 export default class ZiroComponent extends HTMLElement {
     connectedCallback() {
@@ -46,7 +46,7 @@ export default class ZiroComponent extends HTMLElement {
             this[element.name] = callback => this.findElement(element.selector, callback);
         });
 
-        this.adoptStyles(theme);
+        this.adoptStyles(globalStyles);
         const styles = this.styles();
         if (Array.isArray(styles)) {
             styles.forEach(style => {

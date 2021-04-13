@@ -45,7 +45,6 @@ class ZiroItem extends ZiroComponent {
                 overflow: hidden;
                 transition: height ${this.speed}ms, width ${this.speed}ms;
                 box-sizing: border-box;
-                margin: var(--zc-space-mini);
             }
 
             :host(:focus) {
@@ -58,8 +57,9 @@ class ZiroItem extends ZiroComponent {
                 background-color: var(--zc-selected-color);
                 color: var(--zc-selected-text-color);
                 padding: var(--zc-space-small);
+                margin: var(--zc-space-mini);
                 border-radius: var(--zc-border-radius);
-                border: var(--zc-light-border);
+                border: none;
                 cursor: pointer;
                 text-overflow: clip;
                 white-space: nowrap;
