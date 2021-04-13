@@ -13,7 +13,7 @@ export default css`
         transition: color var(--zc-transition-speed) ease-in-out, background-color var(--zc-transition-speed) ease-in-out;
     }
 
-    button:hover, button.focus {
+    button:hover, button:focus {
         background-color: var(--zc-primary-color);
         color: var(--zc-primary-text-color);
         outline: none;

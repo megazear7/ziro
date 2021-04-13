@@ -2,6 +2,7 @@ import html from './services/html.js';
 import css from './services/css.js';
 import buttonStyles from './styles/button.js';
 import ZiroComponent from './ziro-component.js';
+import './ziro-splash.js';
 
 class ZiroButton extends ZiroComponent {
     readyCallback() {

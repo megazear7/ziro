@@ -2,6 +2,7 @@ import html from './services/html.js';
 import css from './services/css.js';
 import deepEqual from './services/deep-equal.js';
 import ZiroComponent from './ziro-component.js';
+import './ziro-splash.js';
 
 class ZiroItem extends ZiroComponent {
     static formAssociated = true;
@@ -47,22 +48,29 @@ class ZiroItem extends ZiroComponent {
                 margin: var(--zc-space-mini);
             }
 
+            :host(:focus) {
+                outline: none;
+            }
+
             div {
+                position: relative;
                 text-align: center;
-                background-color: var(--zc-background-color);
-                color: var(--zc-background-text-color);
+                background-color: var(--zc-selected-color);
+                color: var(--zc-selected-text-color);
                 padding: var(--zc-space-small);
                 border-radius: var(--zc-border-radius);
                 border: var(--zc-light-border);
                 cursor: pointer;
-                transition: background-color var(--zc-transition-speed);
                 text-overflow: clip;
                 white-space: nowrap;
                 overflow: hidden;
+                transition: color var(--zc-transition-speed) ease-in-out, background-color var(--zc-transition-speed) ease-in-out;
             }
 
             div:hover, div:focus {
-                border: var(--zc-primary-border);
+                background-color: var(--zc-primary-color);
+                color: var(--zc-primary-text-color);
+                outline: none;
             }
 
             div.selected {
@@ -70,16 +78,12 @@ class ZiroItem extends ZiroComponent {
                 color: var(--zc-primary-text-color);
                 border: var(--zc-primary-border);
             }
-
-            div:focus {
-                outline: none;
-            }
         `];
     }
 
     render() {
         return html`
-            <div class="${this.selected ? 'selected' : ''}"><slot></div>
+            <div class="${this.selected ? 'selected' : ''}"><slot></slot><ziro-splash></ziro-splash></div>
         `;
     }
 
