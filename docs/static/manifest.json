@@ -1,6 +1,6 @@
 {
   "name": "Ziro Components",
-  "short_name": "ZiroComponents",
+  "short_name": "ZiroComp",
   "description": "A set of web components for easily building apps.",
   "start_url": "/",
   "display": "standalone",

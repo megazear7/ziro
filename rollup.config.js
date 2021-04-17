@@ -6,7 +6,7 @@ export default {
   input: 'src/ziro-components.js',
   output: {
     file: 'docs/static/ziro.bundled.js',
-    name: 'WeatherBear',
+    name: 'ZiroComp',
     format: 'umd',
   },
   plugins: [
