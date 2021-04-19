@@ -1,10 +1,10 @@
 # Ziro Components
 
-###### [A Ziro Project](https://ziro.alexlockhart.me/)
+A library of web components
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/5725bd07-7160-4bf8-aaf5-13a8a7580e7b/deploy-status)](https://app.netlify.com/sites/ziro-components/deploys)
 
-A library of web components
+[A Ziro Project](https://ziro.alexlockhart.me/) 
 
 ## Using
 
