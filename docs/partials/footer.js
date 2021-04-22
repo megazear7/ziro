@@ -17,6 +17,5 @@ export default () => html`
     </ul>
     <hr>
     <p>Built with the <a href="https://orison.alexlockhart.me/">OrisonJS</a></p>
-    <p>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></p>
   </footer>
 `;
