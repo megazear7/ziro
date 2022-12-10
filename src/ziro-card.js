@@ -2,6 +2,7 @@ import html from './services/html.js';
 import css from './services/css.js';
 import ZiroComponent from './ziro-component.js';
 import './ziro-splash.js';
+import { wait } from './services/time.js';
 
 class ZiroCard extends ZiroComponent {
     readyCallback() {
@@ -111,13 +112,15 @@ class ZiroCard extends ZiroComponent {
         }
     }
 
-    reset() {
-        // TODO: set transition-speed to 0
+    async reset() {
+        this.shadowRoot.querySelector('[part="card"]').style.transition = 'auto';
+        await wait(1);
         this._isFlipOut = false;
         this._isFlipIn = false;
         this.container.classList.remove('flipIn');
         this.container.classList.remove('flipOut');
-        // TODO: reset transition-speed to original value
+        await wait(1);
+        this.shadowRoot.querySelector('[part="card"]').style = '';
     }
 
     flipOut() {

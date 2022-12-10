@@ -85,19 +85,21 @@
                 --zc-font-size-x3: 36px;
 
                 --zc-transition-speed: 300ms;
-                --zc-transition-speed-slow: 600ms;
+                --zc-transition-speed-slow: 1200ms;
 
                 --zc-perspective: 1500px;
             }
 
             ziro-card::part(card) {
                 background: #eee;
+                height: 400px;
             }
         </style>
     </head>
     <body>
         <button onclick="document.getElementById('card').proceed()">Flip</button>
-        <div style="width: 700px; margin: 0 auto;">
+        <br><br>
+        <div style="width: 330px; margin: 0 auto;">
             <ziro-card id="card">
                 <p>Hello, world</p>
             </ziro-card>
