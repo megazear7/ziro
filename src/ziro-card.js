@@ -6,6 +6,7 @@ import { wait } from './services/time.js';
 
 class ZiroCard extends ZiroComponent {
     readyCallback() {
+        this._isAnimating = false;
         this.isFlipOut = this.getAttribute('flip-out') === 'true';
         this.isFlipIn = this.getAttribute('flip-in') === 'true';
         this.dispatchEvent(new CustomEvent('ziro-card-connected', {
@@ -79,10 +80,21 @@ class ZiroCard extends ZiroComponent {
     }
 
     set isFlipIn(val) {
-        this._isFlipIn = val;
-        this._isFlipOut = false;
-
         if (this.container) {
+            if (this._isAnimating) {
+                return;
+            }
+    
+            this._isAnimating = true;
+            this.container.classList.add('isAnimating');
+            setTimeout(() => {
+                this._isAnimating = false;
+                this.container.classList.remove('isAnimating');
+            }, 600);
+    
+            this._isFlipIn = val;
+            this._isFlipOut = false;
+
             if (this._isFlipIn) {
                 this.container.classList.remove('flipOut');
                 this.container.classList.add('flipIn');
@@ -98,10 +110,21 @@ class ZiroCard extends ZiroComponent {
     }
 
     set isFlipOut(val) {
-        this._isFlipOut = val;
-        this._isFlipIn = false;
-
         if (this.container) {
+            if (this._isAnimating) {
+                return;
+            }
+    
+            this._isAnimating = true;
+            this.container.classList.add('isAnimating');
+            setTimeout(() => {
+                this._isAnimating = false;
+                this.container.classList.remove('isAnimating');
+            }, 600);
+    
+            this._isFlipOut = val;
+            this._isFlipIn = false;
+
             if (this._isFlipOut) {
                 this.container.classList.remove('flipIn');
                 this.container.classList.add('flipOut');
@@ -113,33 +136,37 @@ class ZiroCard extends ZiroComponent {
     }
 
     async reset() {
+        if (this._isAnimating) {
+            return;
+        }
+
+        this._isAnimating = true;
+        setTimeout(() => this._isAnimating = false, 30);
+
         this.shadowRoot.querySelector('[part="card"]').style.transition = 'auto';
-        await wait(1);
+        await wait(10);
         this._isFlipOut = false;
         this._isFlipIn = false;
         this.container.classList.remove('flipIn');
         this.container.classList.remove('flipOut');
-        await wait(1);
+        await wait(10);
         this.shadowRoot.querySelector('[part="card"]').style = '';
     }
 
-    flipOut() {
+    async flipOut() {
         this.isFlipOut = true;
     }
 
-    flipIn() {
+    async flipIn() {
         this.isFlipIn = true;
     }
 
     proceed() {
         if (this.isFlipOut) {
-            console.log('A');
             this.reset();
         } else if (this.isFlipIn) {
-            console.log('B');
             this.flipOut();
         } else {
-            console.log('C');
             this.flipIn();
         }
     }
