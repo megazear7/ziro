@@ -54,12 +54,14 @@ export default context => html`
         --zc-background-mild-color: #666;
         --zc-background-text-color: #111;
         --zc-selected-color: #ddd;
-        --zc-background-mild-color: #555;
+        --zc-background-light-color: #ddd;
         --zc-selected-text-color: #111;
 
         --zc-border-radius: 3px;
         --zc-light-border: 1px solid var(--zc-background-mild-color);
         --zc-primary-border: 1px solid var(--zc-primary-color);
+
+        --zc-card-shadow: 0 7px 18px 0px #6666;
 
         --zc-space-tiny: 6px;
         --zc-space-mini: 8px;
@@ -76,6 +78,9 @@ export default context => html`
         --zc-font-size-x3: 36px;
 
         --zc-transition-speed: 300ms;
+        --zc-transition-speed-slow: 1200ms;
+
+        --zc-perspective: 1500px;
     }
     </style>
   </head>
