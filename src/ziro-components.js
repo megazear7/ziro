@@ -12,3 +12,4 @@ import './ziro-button.js';
 import './ziro-input.js';
 import './ziro-finder.js';
 import './ziro-item.js';
+import './ziro-card.js';
