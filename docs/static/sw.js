@@ -1,4 +1,4 @@
-var appCacheName = 'app-cache-v37';
+var appCacheName = 'app-cache-v39';
 var cacheNames = [appCacheName];
 var offlinePage = '/offline.html';
 var offlineFragment = '/offline.fragment.html';

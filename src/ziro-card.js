@@ -132,6 +132,10 @@ class ZiroCard extends ZiroComponent {
                 this.container.classList.remove('flipIn');
                 this.container.classList.remove('flipOut');
             }
+
+            setTimeout(() => {
+                this.reset();
+            }, 1200);
         }
     }
 
