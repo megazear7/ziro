@@ -34,7 +34,8 @@ class ZiroItem extends ZiroComponent {
             'selected',
             'animateWidth',
             { attr: 'speed', type: 'number', default: '300' },
-            { attr: 'value', type: 'json' }
+            { attr: 'value', type: 'json' },
+            { attr: 'layout', type: 'string', default: 'button' },
         ];
     }
 
@@ -82,9 +83,15 @@ class ZiroItem extends ZiroComponent {
     }
 
     render() {
-        return html`
-            <div class="${this.selected ? 'selected' : ''}"><slot></slot><ziro-splash></ziro-splash></div>
-        `;
+        if (this.layout === 'plain') {
+            return html`
+                <slot></slot>
+            `
+        } else {
+            return html`
+                <div class="${this.selected ? 'selected' : ''}"><slot></slot><ziro-splash></ziro-splash></div>
+            `;
+        }
     }
 
     propUpdated(attr) {
